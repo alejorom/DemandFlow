@@ -1,5 +1,5 @@
 # Visión del producto — DemandFlow
-**Estado:** reglas funcionales y ADR aprobados individualmente; documentación integrada pendiente de aprobación formal.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada; implementación aún no autorizada.
 
 ## Problema
 El registro manual en Excel de demandas de ingeniería Full Stack dificulta validar unicidad, conservar cambios y mantener tarifas históricas.

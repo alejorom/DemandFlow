@@ -1,5 +1,5 @@
 # Modelo conceptual de datos
-**Estado:** borrador integrado en refinamiento; decisiones funcionales aprobadas, diseño físico pendiente de implementación.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada; diseño físico pendiente de implementación, aún no autorizada.
 
 ![Modelo conceptual](diagrams/data-model.png)
 

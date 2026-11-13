@@ -68,7 +68,7 @@ La combinación elegida aprovecha el ecosistema Spring Boot, permite enfocarse e
 
 - Usar `BigDecimal` en Java y `NUMERIC` en PostgreSQL para horas, tarifas e importes.
 - No usar `float` ni `double` para cálculos económicos.
-- Definir formalmente escala, precisión y política de redondeo **antes de implementar**; estos detalles siguen pendientes en la línea base funcional.
+- Aplicar la escala, precisión y política de redondeo aprobadas en RF-MON-001..005: horas `NUMERIC(12,2)`, tarifa horaria `NUMERIC(15,2)` e importe `NUMERIC(27,2)`; rechazar entradas con más de dos decimales y redondear una sola vez tras multiplicar, a dos decimales con `HALF_UP`.
 - Calcular el importe como horas contratadas multiplicadas por la tarifa aplicada.
 - Si cambian solo las horas, recalcular con la tarifa histórica guardada; si cambian tipo o vigencia, obtener la nueva tarifa activa y auditar el cambio.
 

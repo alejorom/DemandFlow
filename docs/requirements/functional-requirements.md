@@ -1,13 +1,13 @@
 <!-- Especificación operativa integrada. El DOCX histórico se conserva como evidencia de levantamiento, no como norma vigente. -->
 
-> **Estado:** Borrador integrado en refinamiento; reglas y ADR aprobados individualmente, pendiente aprobación formal del conjunto.
+> **Estado:** Línea base funcional y arquitectónica v1.0 aprobada; implementación aún no autorizada.
 > **Documento vigente de trabajo:** este Markdown, junto con [business-rules.md](business-rules.md). El [DOCX histórico](../reference/DemandFlow_Requisitos_Funcionales_v1.0.docx) se conserva sin modificaciones.
 
 # DemandFlow
 
-**Documento de requisitos funcionales · Borrador integrado (sin versión oficial)**
+**Documento de requisitos funcionales · Línea base v1.0 aprobada**
 
-Origen del levantamiento: 13 de noviembre de 2026 | Estado: borrador consolidado pendiente de aprobación documental formal.
+Origen del levantamiento: 13 de noviembre de 2026 | Estado: Línea base funcional y arquitectónica v1.0 aprobada.
 
 ## 1. Control del documento
 
@@ -15,7 +15,7 @@ Origen del levantamiento: 13 de noviembre de 2026 | Estado: borrador consolidado
 | --- | --- |
 | Producto | DemandFlow |
 | Versión | 1.0 |
-| Estado | Borrador integrado; decisiones individuales aprobadas, publicación de línea base pendiente |
+| Estado | Línea base funcional y arquitectónica v1.0 aprobada |
 | Origen | Entrevista de refinamiento y Excel anonimizado como referencia de proceso |
 | Método previsto | SDD + OpenSpec, desde el inicio del desarrollo |
 | Restricción | No se autoriza implementación, generación de código ni inicialización OpenSpec en esta etapa |
@@ -184,7 +184,7 @@ Como usuario quiero consultar sumatorias según filtros.
 
 *Figura 1. Representación visual reconstruida a partir de la tabla conceptual de este documento; no es una copia recuperada del gráfico original. Esquema no físico.*
 
-Las relaciones y restricciones aprobadas se describen en [data-model.md](../architecture/data-model.md). Los detalles físicos y de implementación se validarán en diseño técnico y OpenSpec tras la aprobación documental.
+Las relaciones y restricciones aprobadas se describen en [data-model.md](../architecture/data-model.md). Los detalles físicos y de implementación se validarán en diseño técnico y OpenSpec cuando se autorice la implementación.
 
 ## 8. Requisitos no funcionales propuestos
 
@@ -240,16 +240,16 @@ Las **33 reglas complementarias aprobadas** están descritas íntegramente en [b
 | 3 | Mantenimiento y auditoría | Edición, desactivación, restauración, historial |
 | 4 | Consultas y totales | Filtros y sumatorias consistentes |
 
-OpenSpec se inicializará solo después de la aprobación documental. Los nombres de cambios son propuestas, no carpetas creadas.
+La implementación requiere autorización separada. Los nombres de cambios son propuestas, no carpetas creadas.
 
-## 12. Lista de revisión y aprobación
+## 12. Lista histórica de revisión y aprobación
 
 - Confirmar que el alcance refleja el proceso real de registro de demanda.
 - Revisar criterios de aceptación HU-001 a HU-008.
 - Verificar que las decisiones ya resueltas de la sección 10 se reflejen coherentemente en arquitectura, modelo y pruebas.
-- Aprobar formalmente el conjunto documental integrado antes de publicar la primera línea base y autorizar por separado el inicio de SDD + OpenSpec.
+- Aprobar formalmente el conjunto documental integrado antes de publicar la primera línea base y autorizar por separado el inicio de SDD + OpenSpec. La línea base v1.0 fue aprobada; la implementación aún requiere autorización separada.
 
-**Estado actual:** borrador integrado, aún no publicado como versión oficial. No se ha generado código ni inicializado OpenSpec.
+**Estado actual:** Línea base funcional y arquitectónica v1.0 aprobada, identificada con el tag `v1.0.0-docs`. La implementación aún no está autorizada y no se ha generado código.
 
 
 ## 13. Trazabilidad del levantamiento histórico

@@ -1,6 +1,6 @@
 # DemandFlow — Matriz de trazabilidad funcional integrada
 
-**Estado:** mapeo de diseño para revisión; escenarios y pruebas todavía no implementados.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada; escenarios y pruebas todavía no implementados y ejecución aún no autorizada.
 
 | Historia | Reglas originales relevantes | Reglas complementarias | Escenarios de aceptación a especificar |
 |---|---|---|---|

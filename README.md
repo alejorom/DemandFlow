@@ -1,6 +1,6 @@
 # DemandFlow — Diseño y levantamiento integrado
 
-**Estado:** borrador único en refinamiento. Las reglas de negocio y ADR-001 a ADR-008 se aprobaron individualmente; la documentación consolidada aún **no** es una línea base oficial. No se ha inicializado OpenSpec ni generado código.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. La implementación aún no está autorizada.
 
 ## Documentación vigente (orden de lectura)
 
@@ -22,4 +22,4 @@ Existe **un solo** `docs/architecture/data-model.md`; no hay archivo paralelo de
 
 ## Estado y siguientes pasos
 
-Pendiente: revisión y aprobación formal del conjunto documental; posteriormente, autorización separada para iniciar SDD + OpenSpec. No hay implementación ni migraciones ejecutadas.
+Pendiente: autorización separada para iniciar la implementación. No hay implementación ni migraciones ejecutadas.

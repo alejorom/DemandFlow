@@ -1,5 +1,5 @@
-# Arquitectura propuesta — DemandFlow
-**Estado:** arquitectura ADR-001 a ADR-008 aceptada. Reglas funcionales refinadas; consolidación documental pendiente de aprobación formal. Implementación no iniciada.
+# Arquitectura — DemandFlow
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada. Implementación no iniciada y aún no autorizada.
 
 ![Arquitectura de componentes](diagrams/components.png)
 
@@ -126,11 +126,11 @@ La decisión está aceptada y sincronizada con su ADR individual. Véase [ADR-00
 
 **Proceso de ingeniería, no arquitectura de ejecución:** OpenSpec, Git y los agentes de IA son herramientas para especificar, revisar, implementar y verificar cambios; no se despliegan como componentes de la aplicación Spring Boot. El ciclo propuesto es requisitos y ADR vigentes → propuesta y escenarios OpenSpec → aprobación humana → tareas e implementación → pruebas y revisión → cierre documentado.
 
-**Jerarquía documental:** `docs/requirements/` conserva la especificación funcional integrada en borrador; `docs/architecture/` y los ADR contienen las decisiones arquitectónicas; `docs/engineering/` define los estándares; OpenSpec documenta el alcance de cada cambio. Una especificación nueva no altera por sí misma un requisito aprobado ni un ADR aceptado. Los conflictos detienen la implementación hasta su resolución.
+**Jerarquía documental:** `docs/requirements/` conserva la especificación funcional integrada aprobada; `docs/architecture/` y los ADR contienen las decisiones arquitectónicas; `docs/engineering/` define los estándares; OpenSpec documenta el alcance de cada cambio. Una especificación nueva no altera por sí misma un requisito aprobado ni un ADR aceptado. Los conflictos detienen la implementación hasta su resolución.
 
 **Portabilidad y control:** Antigravity, Codex, Claude Code y GitHub Copilot podrán colaborar mediante especificaciones compartidas, verificando las integraciones y rutas reales antes de configurarlas. Los agentes modifican archivos directamente en el repositorio, comunican solo un resumen breve y no trabajan simultáneamente sobre los mismos archivos sin coordinación. Se revisan los diffs y las pruebas antes de cerrar cambios.
 
-**Condición de inicio:** los ocho ADR están aceptados; no inicializar OpenSpec ni generar código hasta la aprobación formal del paquete documental y autorización expresa de inicio. Las versiones, comandos y convenciones exactas de OpenSpec se validarán durante la preparación del entorno. Véase [ADR-008](../architecture-decisions/ADR-008-openspec-agents.md).
+**Condición de inicio:** la línea base documental y los ocho ADR están aprobados; la implementación requiere autorización expresa de inicio. Las versiones, comandos y convenciones exactas de OpenSpec se validarán durante la preparación del entorno. Véase [ADR-008](../architecture-decisions/ADR-008-openspec-agents.md).
 
 
 ## Matriz única de trazabilidad arquitectónica
@@ -148,4 +148,4 @@ La decisión está aceptada y sincronizada con su ADR individual. Véase [ADR-00
 
 **Regla de mantenimiento:** los ocho ADR están aceptados; su aprobación no equivale a implementación. Cualquier sustitución de una decisión aceptada requiere revisión y un ADR explícito. El documento maestro debe mantenerse acumulativo y sus diagramas deben permanecer enlazados.
 
-**Pendiente antes de implementar:** cerrar las reglas funcionales abiertas (precisión y redondeo, normalización de clave/proyecto JIRA, edición de vigencias usadas y concurrencia), verificar versiones e inicializar OpenSpec solo tras esa revisión.
+**Refinamientos aprobados:** la precisión y el redondeo se rigen por RF-MON-001..005; la clave JIRA y el proyecto derivado, por RF-JIRA-001..006; la edición de fechas de vigencias usadas, por RF-PER-001..002; y la concurrencia, por RF-CON-001..005. Los detalles técnicos y las pruebas de estas reglas se verificarán durante el diseño y la implementación. Antes de implementar se requiere autorización expresa y verificar las versiones correspondientes.

@@ -1,6 +1,6 @@
 # DemandFlow — Reglas de negocio complementarias aprobadas
 
-**Estado:** reglas aprobadas; documentación integrada en borrador de refinamiento.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada; implementación aún no autorizada.
 **Alcance:** integra y precisa las reglas RN-001 a RN-041 sin eliminar su redacción original.
 **Precedencia:** en los puntos expresamente refinados, prevalece la decisión posterior aprobada; conservar texto original para trazabilidad.
 
@@ -129,6 +129,6 @@ Aplicar los mismos filtros al listado y agregados; cambios de filtros o tamaño 
 ## Criterio de consolidación
 - La especificación operativa de las 41 RN está en [functional-requirements.md](functional-requirements.md); este archivo contiene las 33 RF adicionales aprobadas, sin duplicarlas.
 - El DOCX original se conserva intacto en `docs/reference/` como evidencia histórica, no como versión oficial.
-- Se publicará una primera línea base solo tras aprobación formal del conjunto.
+- Línea base funcional y arquitectónica v1.0 aprobada e identificada con el tag `v1.0.0-docs`.
 - No inicializar OpenSpec ni generar código.
 - No convertir verificaciones técnicas pendientes en reglas de negocio adicionales sin aprobación.
