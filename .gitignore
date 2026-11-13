@@ -1,0 +1,90 @@
+# DemandFlow — Java 21 / Spring Boot / Maven / PostgreSQL
+# Keep documentation, OpenSpec specifications, and shared agent instructions under version control.
+
+# Java / Maven build outputs
+/target/
+**/target/
+*.class
+*.log
+*.hprof
+hs_err_pid*
+replay_pid*
+
+# IDEs and local workspaces
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+.metadata/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+*.code-workspace
+/.debtdoctor
+/.metrics
+
+# Operating system / editor artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local.properties
+application-local.yml
+application-local.yaml
+application-local.properties
+application-secret.yml
+application-secret.yaml
+application-secret.properties
+**/application-local.yml
+**/application-local.yaml
+**/application-local.properties
+**/application-secret.yml
+**/application-secret.yaml
+**/application-secret.properties
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local database data and backups
+postgres-data/
+pgdata/
+*.dump
+*.backup
+*.sql.gz
+
+# Test / coverage / temp outputs
+coverage/
+*.exec
+*.ec
+*.tmp
+*.temp
+.cache/
+
+# AI agent transient state (do NOT ignore shared instructions/skills)
+.agents/cache/
+.agents/tmp/
+.claude/cache/
+.claude/tmp/
+
+# Keep tracked: docs/, *.excalidraw, *.png, openspec/, .agents/skills/,
+# .agents/workflows/, .claude/skills/, .claude/commands/,
+# .github/prompts/, .github/skills/, .vscode shared configs, mvnw, .mvn/.
