@@ -2,6 +2,8 @@
 
 **Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. La implementación aún no está autorizada.
 
+OpenSpec se inicializó y configuró con OpenSpec CLI 1.15.0 para Antigravity, Codex, Claude Code y GitHub Copilot. La inicialización no autoriza la implementación.
+
 ## Documentación vigente (orden de lectura)
 
 1. [Visión y alcance](docs/vision.md)

@@ -18,7 +18,7 @@ Origen del levantamiento: 13 de noviembre de 2026 | Estado: Línea base funciona
 | Estado | Línea base funcional y arquitectónica v1.0 aprobada |
 | Origen | Entrevista de refinamiento y Excel anonimizado como referencia de proceso |
 | Método previsto | SDD + OpenSpec, desde el inicio del desarrollo |
-| Restricción | No se autoriza implementación, generación de código ni inicialización OpenSpec en esta etapa |
+| Restricción | OpenSpec está inicializado; la implementación y la generación de código requieren autorización separada |
 
 ## 2. Propósito y alcance
 
