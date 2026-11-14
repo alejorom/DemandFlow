@@ -4,10 +4,10 @@ La ejecución de estas tareas requiere la aprobación independiente del cambio c
 
 ## 1. Construcción y dependencias
 
-- [ ] 1.1 Verificar y registrar una versión compatible de Maven para el Wrapper y la compatibilidad de JUnit 5 y Spring Boot Test con Spring Boot 4.1.2 y Java 21, con referencias oficiales revisables; comprobar también procedencia e integridad de la distribución Maven.
+- [ ] 1.1 Verificar y registrar una versión compatible de Maven para el Wrapper y la compatibilidad de JUnit Jupiter 6 y Spring Boot Test con Spring Boot 4.1.2 y Java 21, con referencias oficiales revisables; comprobar también procedencia e integridad de la distribución Maven.
 - [ ] 1.2 Crear el proyecto Maven con Java 21, Spring Boot 4.1.2, `groupId` `io.github.alejorom`, `artifactId` `demandflow` y dependencias mínimas sin persistencia; verificar el descriptor y la resolución de dependencias.
 - [ ] 1.3 Incorporar y versionar Maven Wrapper con la versión fijada y verificación de integridad; ejecutar el Wrapper con Java 21 sin Maven global y comprobar su versión y funcionamiento.
-- [ ] 1.4 Añadir una prueba de arranque del contexto con JUnit 5 y Spring Boot Test; ejecutar compilación, pruebas y empaquetado con el Wrapper y verificar que producen un artefacto ejecutable.
+- [ ] 1.4 Añadir una prueba de arranque del contexto con JUnit Jupiter 6 y Spring Boot Test; ejecutar compilación, pruebas y empaquetado con el Wrapper y verificar que producen un artefacto ejecutable.
 - [ ] 1.5 Comprobar en un entorno de prueba aislado que un fallo de compilación o prueba hace que la construcción devuelva un resultado no exitoso, sin conservar cambios deliberadamente fallidos.
 
 ## 2. Arranque local protegido
