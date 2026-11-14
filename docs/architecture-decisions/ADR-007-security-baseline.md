@@ -88,4 +88,4 @@ Actualizar de manera **aditiva** `docs/architecture/architecture.md` y referenci
 - [ADR-004](ADR-004-jpa-flyway.md), [ADR-005](ADR-005-server-rendered-ui.md), [ADR-006](ADR-006-audit-history.md)
 - [Estándares de seguridad](../engineering/security-standards.md) y [estrategia de pruebas](../engineering/testing-strategy.md)
 
-**Aprobación:** aceptada. La implementación y las pruebas de seguridad siguen pendientes; no iniciar OpenSpec ni código hasta cerrar los bloqueos funcionales.
+**Aprobación:** aceptada. OpenSpec está inicializado; la implementación y las pruebas de seguridad siguen pendientes y requieren autorización independiente. Los bloqueos funcionales que se identifiquen deben resolverse antes de implementar.

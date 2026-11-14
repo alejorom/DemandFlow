@@ -81,4 +81,4 @@ El snapshot desacopla el importe aplicado del catálogo mutable. La auditoría e
 Precisar escala/precisión de horas y COP, redondeo, formato definitivo de eventos, política de retención, manejo de conflictos concurrentes y reglas exactas de edición/reactivación. No inferir estas reglas a partir de este ADR.
 
 ## 12. Estado y aprobación
-**Aceptado.** La estrategia de snapshot y auditoría transaccional está aprobada. Los detalles funcionales abiertos deben resolverse antes de implementar; esta aprobación no autoriza por sí sola iniciar Java, Docker u OpenSpec.
+**Aceptado.** La estrategia de snapshot y auditoría transaccional está aprobada. OpenSpec está inicializado; los detalles funcionales abiertos deben resolverse antes de implementar y esta aprobación no autoriza por sí sola la implementación.

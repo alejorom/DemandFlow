@@ -128,9 +128,9 @@ La decisión está aceptada y sincronizada con su ADR individual. Véase [ADR-00
 
 **Jerarquía documental:** `docs/requirements/` conserva la especificación funcional integrada aprobada; `docs/architecture/` y los ADR contienen las decisiones arquitectónicas; `docs/engineering/` define los estándares; OpenSpec documenta el alcance de cada cambio. Una especificación nueva no altera por sí misma un requisito aprobado ni un ADR aceptado. Los conflictos detienen la implementación hasta su resolución.
 
-**Portabilidad y control:** Antigravity, Codex, Claude Code y GitHub Copilot podrán colaborar mediante especificaciones compartidas, verificando las integraciones y rutas reales antes de configurarlas. Los agentes modifican archivos directamente en el repositorio, comunican solo un resumen breve y no trabajan simultáneamente sobre los mismos archivos sin coordinación. Se revisan los diffs y las pruebas antes de cerrar cambios.
+**Portabilidad y control:** OpenSpec se configuró para Antigravity, Codex, Claude Code y GitHub Copilot, que pueden colaborar mediante especificaciones compartidas. Los agentes modifican archivos directamente en el repositorio, comunican solo un resumen breve y no trabajan simultáneamente sobre los mismos archivos sin coordinación. Se revisan los diffs y las pruebas antes de cerrar cambios.
 
-**Condición de inicio:** la línea base documental y los ocho ADR están aprobados; la implementación requiere autorización expresa de inicio. Las versiones, comandos y convenciones exactas de OpenSpec se validarán durante la preparación del entorno. Véase [ADR-008](../architecture-decisions/ADR-008-openspec-agents.md).
+**Condición de inicio:** la línea base documental y los ocho ADR están aprobados; OpenSpec se inicializó con CLI 1.15.0. La implementación requiere autorización expresa de inicio. Los comandos y convenciones aplicables deben verificarse con la versión utilizada. Véase [ADR-008](../architecture-decisions/ADR-008-openspec-agents.md).
 
 
 ## Matriz única de trazabilidad arquitectónica

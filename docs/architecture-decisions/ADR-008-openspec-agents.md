@@ -11,7 +11,7 @@ DemandFlow es un MVP educativo y funcional con reglas económicas, histórico au
 Adoptar **Specification-Driven Development (SDD)** mediante **OpenSpec**, en el repositorio de DemandFlow, **solo después** de aprobar la arquitectura y resolver las reglas funcionales bloqueantes. Las propuestas y especificaciones de cambios guían la implementación; los agentes no sustituyen la aprobación humana.
 
 ### 2.1. Autoridad y trazabilidad documental
-- `docs/requirements/`: especificación funcional integrada en revisión y criterios de aceptación.
+- `docs/requirements/`: especificación funcional integrada aprobada y criterios de aceptación.
 - `docs/architecture/` y `docs/architecture-decisions/`: arquitectura vigente y decisiones técnicas, incluidos diagramas Excalidraw.
 - `docs/engineering/`: estándares de pruebas, seguridad, código y Git.
 - `openspec/`: propuestas, especificaciones, diseño y tareas **del cambio concreto**; no reemplaza silenciosamente las líneas base anteriores.
@@ -26,7 +26,7 @@ Adoptar **Specification-Driven Development (SDD)** mediante **OpenSpec**, en el 
 5. Implementar solo lo aprobado; ejecutar pruebas y verificaciones pertinentes.
 6. Revisar diferencias, documentar resultados, actualizar documentación afectada y cerrar/archivar el cambio conforme a la versión de OpenSpec instalada.
 
-Las convenciones exactas de directorios, comandos, artefactos y capacidades se confirmarán con la versión de OpenSpec utilizada al inicializarlo. No se presupone que todos los agentes soporten las mismas integraciones.
+OpenSpec se inicializó con OpenSpec CLI 1.15.0 y se configuraron las integraciones para Antigravity, Codex, Claude Code y GitHub Copilot. Las convenciones y capacidades deben verificarse con la versión utilizada; no se presupone que todos los agentes soporten las mismas integraciones.
 
 ### 2.3. Reglas para agentes
 - Leer requisitos, ADR y estándares pertinentes antes de editar.
@@ -68,7 +68,7 @@ Aplican ADR-007 y los estándares de ingeniería: sin secretos en prompts ni rep
 Añadir a `docs/architecture/architecture.md` una sección de **gobernanza SDD** y referencia a `docs/architecture/diagrams/sdd-workflow.excalidraw` y su PNG. El diagrama describe el proceso de ingeniería, no los componentes desplegados. Conservar las secciones de ADR-001 a ADR-007 y sus diagramas sin modificaciones.
 
 ## 9. Estado y condiciones para iniciar
-**Aceptado:** ADR-001 a ADR-008 están aprobados por confirmación expresa del responsable del proyecto. La aprobación de este ADR no implica inicialización de OpenSpec ni implementación. Antes de iniciar deben cerrarse las reglas funcionales bloqueantes, verificar la versión de OpenSpec y revisar la preparación del entorno.
+**Aceptado:** ADR-001 a ADR-008 y la línea base funcional y arquitectónica v1.0 están aprobados. OpenSpec fue inicializado y configurado con OpenSpec CLI 1.15.0 para Antigravity, Codex, Claude Code y GitHub Copilot. La implementación aún requiere aprobación independiente; la inicialización de OpenSpec no la autoriza.
 
 ## 10. Referencias internas
 - [Arquitectura acumulativa](../architecture/architecture.md)

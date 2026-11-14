@@ -130,5 +130,5 @@ Aplicar los mismos filtros al listado y agregados; cambios de filtros o tamaño 
 - La especificación operativa de las 41 RN está en [functional-requirements.md](functional-requirements.md); este archivo contiene las 33 RF adicionales aprobadas, sin duplicarlas.
 - El DOCX original se conserva intacto en `docs/reference/` como evidencia histórica, no como versión oficial.
 - Línea base funcional y arquitectónica v1.0 aprobada e identificada con el tag `v1.0.0-docs`.
-- No inicializar OpenSpec ni generar código.
+- OpenSpec está inicializado; la generación de código requiere autorización separada.
 - No convertir verificaciones técnicas pendientes en reglas de negocio adicionales sin aprobación.
