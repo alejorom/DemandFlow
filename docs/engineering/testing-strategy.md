@@ -2,7 +2,7 @@
 **Estado:** estrategia de validación propuesta para decisiones funcionales y ADR aprobados; implementación pendiente.
 
 ## Pirámide práctica
-1. **Unitarias (JUnit 5):** cálculo de demanda, cero horas, decimales, cambio de tipo/vigencia, preservación de tarifa histórica.
+1. **Unitarias (JUnit Jupiter 6):** cálculo de demanda, cero horas, decimales, cambio de tipo/vigencia, preservación de tarifa histórica.
 2. **Integración (Spring Boot + PostgreSQL de prueba):** unicidad JIRA incluso inactiva, solape de vigencias, transacciones de auditoría, restricciones y migraciones Flyway.
 3. **Web/MVC:** validación de formularios, errores seguros, filtros, sumas, CSRF y escape HTML.
 4. **Pruebas de aceptación:** escenarios OpenSpec vinculados a HU-001..HU-008.

@@ -83,7 +83,7 @@ No se adoptan microservicios, buses de eventos distribuidos, CQRS ni Clean Archi
 
 - **Java 21 LTS** es la plataforma base; **Spring Boot** proporciona el entorno de aplicación y **Maven** gestiona compilación, dependencias, pruebas y empaquetado.
 - La versión concreta de Spring Boot y sus plugins se fijará al crear el proyecto, previa verificación de compatibilidad con Java 21.
-- **JUnit 5 y Spring Boot Test** forman parte de la estrategia de pruebas; los detalles se mantienen en [`testing-strategy.md`](../engineering/testing-strategy.md).
+- **JUnit Jupiter 6 y Spring Boot Test** forman parte de la estrategia de pruebas; los detalles se mantienen en `docs/engineering/testing-strategy.md`.
 - Se prefiere inyección de dependencias por constructor, controladores ligeros y transacciones en servicios/casos de uso.
 - Para dinero y horas se utiliza `BigDecimal`, nunca aritmética binaria de coma flotante; para fechas de vigencia, `LocalDate`. Las reglas de escala y redondeo están aprobadas en RF-MON-001..005.
 
