@@ -20,7 +20,7 @@ El proyecto utilizará `groupId` `io.github.alejorom`, `artifactId` `demandflow`
 
 ### Construcción y dependencias
 
-Fijar en el descriptor Maven una versión concreta de Spring Boot y usar su gestión de dependencias y plugins. Antes de fijarla, verificar en la documentación oficial su compatibilidad y soporte para Java 21, así como la compatibilidad con JUnit 5 y Spring Boot Test exigidos por ADR-002; registrar la versión elegida y su evidencia en el cambio. No se adopta una versión dinámica ni se presupone compatibilidad. Incluir y versionar Maven Wrapper para que los equipos utilicen una versión de Maven fijada; frente a depender de una instalación local, esto mejora la reproducibilidad de la construcción.
+Fijar Spring Boot **4.1.2** en el descriptor Maven y usar su gestión de dependencias y plugins. Los [requisitos oficiales de Spring Boot 4.1.2](https://docs.spring.io/spring-boot/4.1.2/system-requirements.html) indican compatibilidad con Java 17 a 27 y Maven 3.6.3 o posterior; Java 21 está incluido en ese intervalo. Elegir una versión de Maven Wrapper compatible y verificar JUnit 5 y Spring Boot Test conforme a ADR-002. No se adopta una versión dinámica. Incluir y versionar Maven Wrapper para que los equipos utilicen una versión de Maven fijada; frente a depender de una instalación local, esto mejora la reproducibilidad de la construcción.
 
 Incluir únicamente lo necesario para el arranque web y sus pruebas. No añadir dependencias de persistencia ni una base de datos embebida: ocultarían la ausencia deliberada de infraestructura y dificultarían comprobar el arranque independiente.
 
@@ -34,7 +34,7 @@ Ejecutar la construcción y pruebas mediante Maven Wrapper con Java 21; verifica
 
 ## Risks / Trade-offs
 
-- **Dependencias incompatibles o sin soporte** → comprobar fuentes oficiales y fijar versiones compatibles antes de implementar.
+- **Dependencias incompatibles o sin soporte** → verificar las versiones de Maven y de las dependencias adicionales y revisar su soporte antes de implementar.
 - **Exposición accidental del servicio** → enlace local explícito y comprobación de la interfaz efectiva; no usar este aislamiento como sustituto de identidad.
 - **Acoplamiento prematuro a la persistencia** → mantener el arranque y sus pruebas sin base de datos; integrar PostgreSQL y Flyway en `setup-database`.
 - **Disponibilidad o integridad de la distribución Maven del Wrapper** → fijar su versión, verificar su procedencia e integridad y documentar los requisitos para obtenerla.

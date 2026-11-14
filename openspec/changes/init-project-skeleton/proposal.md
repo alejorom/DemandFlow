@@ -23,7 +23,7 @@ Ninguna; actualmente no existen especificaciones principales en OpenSpec.
 
 ## Impact
 
-- **Arquitectura y dependencias:** se propone la base de un monolito modular según ADR-001 (`docs/architecture-decisions/ADR-001-architectural-style.md`) y la plataforma de ADR-002 (`docs/architecture-decisions/ADR-002-java-spring.md`), incluyendo Maven Wrapper. La versión concreta de Spring Boot y sus dependencias debe seleccionarse tras comprobar compatibilidad y soporte para Java 21.
+- **Arquitectura y dependencias:** se propone la base de un monolito modular según ADR-001 (`docs/architecture-decisions/ADR-001-architectural-style.md`) y la plataforma de ADR-002 (`docs/architecture-decisions/ADR-002-java-spring.md`), con Spring Boot 4.1.2, Java 21 y Maven Wrapper.
 - **Seguridad y operación:** aplicar los límites de entorno local protegido de ADR-007 (`docs/architecture-decisions/ADR-007-security-baseline.md`) y los estándares de seguridad (`docs/engineering/security-standards.md`); sin autenticación, la aplicación no debe exponerse públicamente.
 - **Pruebas y evolución:** verificar compilación y arranque según la estrategia de pruebas (`docs/engineering/testing-strategy.md`). No se modifican las 8 HU ni las reglas RN y RF de la línea base funcional (`docs/requirements/functional-requirements.md`); las capacidades de negocio y persistencia se abordarán en cambios posteriores.
 - **Riesgos y dependencias:** una versión o dependencia incompatible puede impedir el arranque; una configuración insegura puede exponer el entorno. La definición de `setup-database` no forma parte de esta propuesta.
