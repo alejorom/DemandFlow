@@ -21,7 +21,7 @@ La **versión concreta de Spring Boot**, sus dependencias administradas y plugin
 
 ### Herramientas de pruebas incluidas en el diseño
 
-- **JUnit 5** (plataforma de pruebas; usar las versiones de sus componentes gestionadas de forma compatible).
+- **JUnit Jupiter 6** (versión gestionada por Spring Boot 4.1.2; usar las versiones de sus componentes gestionadas de forma compatible).
 - **Spring Boot Test** para pruebas de integración y de componentes Spring cuando corresponda.
 - **Maven Surefire/Failsafe** u otros plugins de prueba según las necesidades efectivas del proyecto.
 
@@ -82,7 +82,7 @@ La combinación permite concentrarse en conceptos de Java y diseño de software 
 - **Sin autenticación, limitar el MVP a un entorno local protegido; no publicar la aplicación en Internet.**
 
 ### 6.5. Pruebas
-- **JUnit 5** para pruebas unitarias de cálculos, validaciones y reglas de negocio.
+- **JUnit Jupiter 6** (versión gestionada por Spring Boot) para pruebas unitarias de cálculos, validaciones y reglas de negocio.
 - **Spring Boot Test** para integración cuando se requiera contexto Spring.
 - Pruebas de persistencia con PostgreSQL para restricciones y transacciones.
 - Mantener las pruebas independientes y reproducibles; evitar que dependan del orden de ejecución.
@@ -95,7 +95,7 @@ La implementación de esta decisión se comprobará cuando:
 - [ ] El proyecto compile y se ejecute con Java 21.
 - [ ] Spring Boot utilice una versión explícita y compatible.
 - [ ] Maven resuelva dependencias y genere el artefacto esperado.
-- [ ] Las pruebas JUnit 5 se ejecuten desde Maven.
+- [ ] Las pruebas JUnit Jupiter 6 se ejecuten desde Maven.
 - [ ] Las pruebas Spring Boot necesarias se ejecuten correctamente.
 - [ ] Se utilice inyección por constructor en componentes aplicables.
 - [ ] No existan secretos en Git ni dependencias críticas vulnerables sin tratamiento documentado.
@@ -114,3 +114,5 @@ La implementación de esta decisión se comprobará cuando:
 ## 9. Estado de la decisión
 
 **Aceptado.** La elección de Java 21 LTS, Spring Boot y Maven está aprobada. Las versiones exactas, configuración y verificación corresponden a la fase de preparación e implementación, que todavía no ha comenzado.
+
+**Enmienda aprobada (2026-11-14):** se sustituye JUnit 5 por JUnit Jupiter 6, en la versión gestionada por Spring Boot 4.1.2. Spring Framework 7 exige JUnit Jupiter 6.0 o superior para `SpringExtension`. La decisión de usar JUnit y Spring Boot Test no cambia; solo el número de versión.

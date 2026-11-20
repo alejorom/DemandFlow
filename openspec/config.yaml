@@ -13,18 +13,22 @@ context: |
 
 rules:
   proposal:
+    - Referenciar documentos internos externos al cambio mediante rutas textuales relativas a la raíz del repositorio, sin enlaces cuya validez dependa de la profundidad del artefacto; conservar los enlaces relativos entre artefactos del mismo cambio cuando sigan siendo válidos al archivarlo.
     - Describir problema, alcance, exclusiones, capacidades afectadas y resultado esperado, con referencias a los requisitos, reglas y ADR pertinentes.
     - Identificar impactos, dependencias, riesgos y decisiones pendientes; señalar conflictos con las fuentes para resolución antes de implementar.
     - Respetar la aprobación humana y las condiciones de inicio establecidas en ADR-008; distinguir la línea base aprobada de la autorización separada para implementar.
   specs:
+    - Referenciar documentos internos externos al cambio mediante rutas textuales relativas a la raíz del repositorio, sin enlaces cuya validez dependa de la profundidad del artefacto; conservar los enlaces relativos entre artefactos del mismo cambio cuando sigan siendo válidos al archivarlo.
     - Definir requisitos verificables y escenarios de aceptación para el alcance del cambio, incluidos casos límite, errores y concurrencia cuando corresponda.
     - Trazar cada requisito y escenario a las HU y reglas RN y RF aplicables mediante docs/requirements/traceability-matrix.md, sin duplicar el catálogo completo.
     - Preservar los refinamientos de RN-001 y RN-031 y no alterar silenciosamente reglas aprobadas ni ADR aceptados.
   design:
+    - Referenciar documentos internos externos al cambio mediante rutas textuales relativas a la raíz del repositorio, sin enlaces cuya validez dependa de la profundidad del artefacto; conservar los enlaces relativos entre artefactos del mismo cambio cuando sigan siendo válidos al archivarlo.
     - Referenciar los ADR y documentos de arquitectura, modelo de datos, seguridad y pruebas pertinentes; justificar las decisiones técnicas y sus consecuencias.
     - Evaluar según el alcance integridad de datos, cálculos, snapshots, auditoría atómica, concurrencia, migraciones, seguridad y despliegue local.
     - Identificar incompatibilidades o cambios de decisiones aceptadas y exigir su resolución y un ADR explícito de sustitución cuando corresponda.
   tasks:
+    - Referenciar documentos internos externos al cambio mediante rutas textuales relativas a la raíz del repositorio, sin enlaces cuya validez dependa de la profundidad del artefacto; conservar los enlaces relativos entre artefactos del mismo cambio cuando sigan siendo válidos al archivarlo.
     - Organizar tareas verificables y ordenadas por dependencia, vinculadas a los requisitos, escenarios y decisiones aplicables.
     - Incluir pruebas y verificaciones proporcionales, trazabilidad, seguridad, integridad y revisión de documentación según el alcance y docs/engineering/.
     - No iniciar implementación hasta contar con las aprobaciones y autorizaciones exigidas por ADR-008; detenerse ante conflictos no resueltos.

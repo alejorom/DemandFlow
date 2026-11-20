@@ -1,6 +1,6 @@
 # DemandFlow — Diseño y levantamiento integrado
 
-**Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. La implementación aún no está autorizada.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. La implementación del cambio `init-project-skeleton` cuenta con autorización independiente.
 
 OpenSpec se inicializó y configuró con OpenSpec CLI 1.15.0 para Antigravity, Codex, Claude Code y GitHub Copilot. La inicialización no autoriza la implementación.
 
@@ -24,4 +24,18 @@ Existe **un solo** `docs/architecture/data-model.md`; no hay archivo paralelo de
 
 ## Estado y siguientes pasos
 
-Pendiente: autorización separada para iniciar la implementación. No hay implementación ni migraciones ejecutadas.
+El esqueleto inicial puede construirse y arrancarse sin base de datos; las funcionalidades de negocio y la persistencia se abordan en cambios posteriores.
+
+## Construcción y arranque local
+
+Se requiere JDK 21 (por ejemplo, Eclipse Temurin), con `JAVA_HOME` apuntando al JDK. No se requiere Maven instalado: el Wrapper descarga Maven 3.9.11 y comprueba la integridad de la distribución; la primera ejecución necesita acceso a Maven Central para obtener Maven y las dependencias.
+
+En Windows, desde la raíz del repositorio:
+
+```powershell
+.\mvnw.cmd test
+.\mvnw.cmd package
+java -jar target/demandflow-0.0.1-SNAPSHOT.jar
+```
+
+El servidor escucha en `127.0.0.1:8080`; se detiene con Ctrl+C. Sin autenticación, debe permanecer en un entorno local protegido.
