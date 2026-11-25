@@ -10,13 +10,16 @@ import java.time.Duration;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.flywaydb.core.Flyway;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.Ports;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.containers.ContainerLaunchException;
+import org.testcontainers.containers.wait.strategy.AbstractWaitStrategy;
+import org.awaitility.core.ConditionTimeoutException;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 import org.springframework.boot.WebApplicationType;
@@ -24,6 +27,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.awaitility.Awaitility.await;
 
 final class PostgresTestSupport {
     static final String IMAGE = "postgres:17.12-trixie";
@@ -96,7 +100,59 @@ final class PostgresTestSupport {
                 .withCreateContainerCmdModifier(command -> command.getHostConfig().withPortBindings(
                         new PortBinding(Ports.Binding.bindIpAndPort("127.0.0.1", 0), new ExposedPort(5432))))
                 .withStartupAttempts(1)
-                .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(120)));
+                .waitingFor(new JdbcReadiness(secrets).withStartupTimeout(Duration.ofSeconds(120)));
+    }
+
+    /** Waits for the final TCP server and bootstrapped roles, rather than an open forwarding port. */
+    static final class JdbcReadiness extends AbstractWaitStrategy {
+        private final Secrets secrets;
+
+        JdbcReadiness(Secrets secrets) {
+            this.secrets = secrets;
+        }
+
+        @Override
+        protected void waitUntilReady() {
+            int port = waitStrategyTarget.getMappedPort(5432);
+            try {
+                await().alias("temporary PostgreSQL JDBC readiness")
+                        .pollDelay(Duration.ZERO).pollInterval(Duration.ofMillis(100))
+                        .atMost(startupTimeout)
+                        .until(() -> jdbcReady(port, "demandflow_migrator", secrets.migrator)
+                                && jdbcReady(port, "demandflow_app", secrets.runtime));
+            } catch (ConditionTimeoutException timeout) {
+                throw new ContainerLaunchException("Temporary PostgreSQL JDBC readiness deadline exceeded");
+            }
+        }
+    }
+
+    static boolean jdbcReady(int port, String role, String password) {
+        var properties = new Properties();
+        properties.setProperty("user", role);
+        properties.setProperty("password", password);
+        // Probe-only native bounds; application JDBC URLs and production timeouts remain unchanged.
+        properties.setProperty("connectTimeout", "1");
+        properties.setProperty("loginTimeout", "1");
+        properties.setProperty("socketTimeout", "1");
+        properties.setProperty("cancelSignalTimeout", "1");
+        try (var connection = DriverManager.getConnection(
+                "jdbc:postgresql://127.0.0.1:" + port + "/demandflow", properties);
+             var statement = connection.createStatement()) {
+            statement.setQueryTimeout(1);
+            try (var result = statement.executeQuery("select current_user, 1")) {
+                if (!result.next() || !role.equals(result.getString(1)) || result.getInt(2) != 1) {
+                    throw new ContainerLaunchException("Temporary PostgreSQL JDBC readiness returned an invalid result");
+                }
+                return true;
+            }
+        } catch (SQLException failure) {
+            // Only startup/transport states can mean not ready yet. Authentication and SQL failures abort.
+            if (failure.getSQLState() != null && List.of("57P03", "08001", "08006").contains(failure.getSQLState())) {
+                return false;
+            }
+            throw new ContainerLaunchException("Temporary PostgreSQL JDBC readiness failed; SQLSTATE="
+                    + failure.getSQLState());
+        }
     }
 
     static String url(int port) {

@@ -202,3 +202,57 @@ Los errores de propiedades vacías, conexión rechazada/no disponible o iniciali
 El reporte distingue `configuration incomplete`, `database connection unavailable or rejected`, `migration validation failed` y `migration execution failed`; estas dos últimas categorías no autorizan repair ni edición de versiones aplicadas. Un directorio configtree ausente también es configuración incompleta. Hibernate puede sustituir la causa de autenticación por un fallo de metadata: revisar la sincronización de la cuenta runtime, sin fijar un dialecto para ocultar la falta de conexión.
 
 La revisión de la imagen y sus límites se registra en [image-security-review.md](../../openspec/changes/archive/2026-11-25-setup-database/image-security-review.md). Los resultados de arranque y privilegios no sustituyen esa revisión ni aprueban excepciones de seguridad.
+
+## Ampliación operativa de manage-tariffs: V2 y V3
+
+Esta sección amplía acumulativamente la base técnica V1 descrita anteriormente. Corresponde al modelo físico del catálogo de HU-001/002, según `openspec/changes/manage-tariffs/design.md` (T2/T5/T8/T9) y las tareas 2.1–2.4 de `openspec/changes/manage-tariffs/tasks.md`. No acredita todavía entidades JPA, casos de uso, pantallas ni los controles web de grupos posteriores. Los resultados reales y observaciones de seguridad se conservan en `openspec/changes/manage-tariffs/evidence.md`; no se declaran resueltos los avisos ni se aceptan riesgos adicionales.
+
+### Migraciones y privilegios de objetos
+
+Las migraciones productivas de `src/main/resources/db/migration/` son:
+
+| Versión | Efecto |
+|---|---|
+| `V1__initialize_application_namespace.sql` | Namespace, propiedad y USAGE originales; archivo e historial inmutables |
+| `V2__create_tariff_catalog.sql` | `tariff_period`, `requirement_type` y `hourly_rate`; tipos fijos Soporte/Feature, checks, FKs, unicidad global y exclusión GiST inclusiva, incluso para períodos inactivos |
+| `V3__create_catalog_audit.sql` | `catalog_audit_event`, FKs/checks/índices de auditoría y grants explícitos de tablas, columnas y secuencias |
+
+Las cuatro tablas pertenecen a `demandflow_migrator` en `demandflow`; `infra.flyway_schema_history` permanece separado. No se añaden extensiones, tablas de demandas, tarifas automáticas ni datos de ejemplo. Las tarifas usan NUMERIC(15,2); esa columna no sustituye la futura validación de escala de entrada, porque PostgreSQL puede convertir decimales antes de comprobar restricciones. Las etiquetas no son únicas y la disponibilidad efectiva de tarifas no se almacena en una columna.
+
+| Objeto | Operaciones runtime autorizadas |
+|---|---|
+| Períodos | SELECT; INSERT sin id; UPDATE de etiqueta, fechas, estado y versión |
+| Tarifas | SELECT; INSERT sin id; UPDATE solo de valor, estado y versión; tipo/período inmutables |
+| Tipos fijos | SELECT exclusivamente |
+| Auditoría | SELECT e INSERT sin id; sin UPDATE, DELETE o TRUNCATE |
+| Secuencias de identidad necesarias | USAGE, sin permiso de setval |
+
+Runtime no recibe propiedad, CREATE, DELETE de negocio ni acceso a `infra`; no hay grants globales o por defecto para objetos futuros. No resolver un error 42501 concediendo superusuario, propietario o permisos generales. Append-only protege los flujos ordinarios y los permisos runtime; no promete inviolabilidad frente al propietario/administrador. La escritura transaccional de eventos desde casos de uso sigue en su grupo de implementación.
+
+### Verificación aislada y disponibilidad JDBC de prueba
+
+El siguiente comando fue verificado para esta etapa y usa solo contenedores temporales, secretos sintéticos y TempDir. No requiere arrancar `demandflow-local`, modificar `.secrets` ni preparar la carpeta permanente:
+
+```powershell
+.\mvnw.cmd -B -Ppersistence-it '-Dit.test=MigrationEvolutionIT,PostgresReadinessIT,PersistenceSupportIT,BootstrapIT,NativeFailureIT,CatalogSchemaIT,CatalogAuditSchemaIT' verify
+```
+
+Requiere Java 21, Docker de prueba accesible e imagen aprobada `postgres:17.12-trixie`. Surefire ejecuta las unitarias; Failsafe ejecuta únicamente las IT seleccionadas. Los reportes quedan en `target/surefire-reports/` y `target/failsafe-reports/`, sin versionarlos ni copiar logs completos con información sensible. La selección verifica base vacía y evolución V1→V2/V3, repetición, checksums, rollback de V3/V4, esquema/permisos, bootstrap, límites nativos y soporte técnico V1 sin JPA. No equivale a aprobar la suite completa heredada ni las funciones pendientes de otros grupos.
+
+`PostgresTestSupport` espera consultas JDBC autenticadas con migrador y runtime, no solo puerto abierto: plazo de prueba 120 s, sondeo condicionado cada 100 ms y consulta `select current_user, 1`. Los límites nativos de conexión/login/socket/cancelación y consulta del sondeo son de 1 s y pertenecen solo a pruebas. Únicamente 57P03/08001/08006 permiten seguir esperando; autenticación, SQL y estados desconocidos fallan de inmediato. Un plazo agotado falla, sin omitir la prueba ni conectar a desarrollo. Los timeouts productivos documentados arriba no cambian. No añadir pausas fijas, reintentos de migraciones ni usar la BD permanente para evitar fallos de preparación.
+
+### Aplicación futura sobre la base permanente
+
+Las pruebas anteriores no aplican V2/V3 al entorno permanente ni autorizan hacerlo. Antes de esa operación se requiere autorización operativa separada, revisión del incremento y de sus observaciones de seguridad, identificación del destino y un respaldo recuperable verificado según los procedimientos de esta guía. Conservar PostgreSQL 17.12-trixie, el proyecto/contenedor, secretos externos, separación de cuentas y `D:/DOCKER_DATA/POSTGRES_DATA`; no reinicializar, trasladar ni recrear almacenamiento o bootstrap.
+
+Cuando esa operación se autorice, el arranque explícito con `persistence` y las mismas credenciales externas aplica versiones pendientes con la cuenta migradora antes de validar JPA. El modo predeterminado sigue sin BD ni migraciones; una URL presente no lo activa. Hibernate conserva `validate`, sin DDL automático, y Open Session in View sigue deshabilitado. El operador debe contrastar historial/checksums, propietarios, restricciones y privilegios efectivos con el modelo aprobado, sin imprimir secretos o cadenas JDBC completas. No ejecutar las comprobaciones antiguas de «namespace vacío» como expectativa del esquema V2/V3.
+
+Cada versión confirma su propia transacción: un fallo de V3 puede dejar V2 confirmada y sus tipos fijos, pero debe revertir la tabla/grants de V3 y no producir un arranque disponible. No interpretar ausencia de éxito como ausencia de cambios anteriores, ni un puerto abierto/healthcheck como prueba de migración o permisos. Detener Java, conservar estado y diagnosticar; no continuar con un esquema parcial ni recurrir a un modo alternativo sin BD.
+
+### Diagnóstico y recuperación de migraciones
+
+Ante errores, revisar localmente perfil, archivos externos, puerto y disponibilidad JDBC; después, con una cuenta autorizada, historial de `infra`, versiones/checksums y objetos/ACL efectivos. Una violación de exclusión 23P01 o unicidad 23505 corresponde a sus restricciones, una FK 23503 a integridad referencial y 42501 a permisos; su tratamiento web seguro se implementará en su grupo. No activar logging SQL o publicar mensajes crudos para resolverlos.
+
+No editar V1 ni migraciones ya aplicadas, borrar versiones del historial, activar repair/baseline/out-of-order o saltar versiones fallidas. Corregir archivos aún no aplicados solo dentro de la revisión autorizada; para versiones aplicadas preparar una nueva migración correctiva aprobada. Los fixtures V4 de `src/test/resources/migrations/` son exclusivamente de pruebas y no se copian a producción.
+
+Preferir recuperación hacia adelante, conservando tablas y auditoría. Volver al artefacto anterior no revierte el esquema ni garantiza compatibilidad: ensayarlo en una copia aislada antes de considerarlo una recuperación válida. Si se requiere restaurar, hacerlo mediante operador autorizado y respaldo verificado en un destino independiente con roles, propietarios, ACL e historial conservados. No hay migración down destructiva ni limpieza/recreación automática del entorno permanente.
