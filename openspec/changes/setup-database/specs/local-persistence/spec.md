@@ -6,7 +6,7 @@ Permitir una persistencia PostgreSQL local, reproducible y de acceso restringido
 
 ### Alcance y trazabilidad
 
-Especificación propuesta, pendiente de revisión humana y de autorización independiente para implementar conforme a ADR-008. Desarrolla únicamente la capacidad `local-persistence` de `openspec/changes/setup-database/proposal.md`; no modifica `openspec/specs/application-startup/spec.md` ni requisitos o ADR aprobados.
+Esta especificación se redactó inicialmente como propuesta pendiente de revisión humana y de autorización independiente para implementar conforme a ADR-008. Ambas fueron obtenidas; su resolución consta en el diseño aprobado del cambio OpenSpec `setup-database`, decisiones D1–D9. Desarrolla únicamente la capacidad `local-persistence` de `openspec/changes/setup-database/proposal.md`; no modifica `openspec/specs/application-startup/spec.md` ni requisitos o ADR aprobados.
 
 Referencias desde la raíz del repositorio:
 
@@ -21,7 +21,7 @@ Referencias desde la raíz del repositorio:
 
 Las referencias de cada requisito se aplican también a todos sus escenarios. Según `docs/requirements/traceability-matrix.md`, este incremento técnico no satisface por sí mismo HU-001 a HU-008 ni implementa reglas RN/RF. Las reglas aprobadas de `docs/requirements/functional-requirements.md` y `docs/requirements/business-rules.md`, incluidos los refinamientos de RN-001 y RN-031, permanecen intactas y fuera de esta implementación técnica.
 
-Persistencia habilitada significa una selección deliberada del operador, sin presuponer su mecanismo. Evaluar un perfil explícito sigue pendiente de diseño y aprobación; no se fija su nombre. También quedan pendientes la versión concreta de PostgreSQL, puerto, esquema técnico, contenido de migraciones, suministro de credenciales, separación de permisos y herramienta de pruebas. Estas decisiones deberán respetar los comportamientos siguientes antes de autorizar implementación.
+Persistencia habilitada significa una selección deliberada del operador. Como antecedente histórico, al redactar esta especificación estaban pendientes el mecanismo y nombre del perfil, la versión concreta de PostgreSQL, puerto, esquema técnico, contenido de migraciones, suministro de credenciales, separación de permisos y herramienta de pruebas. Su resolución consta en el diseño aprobado del cambio OpenSpec `setup-database`, decisiones D1–D9, incluidos los ajustes autorizados de D2 (Trixie) y D3 (bind mount Windows). Estas decisiones concretan los comportamientos siguientes sin modificarlos. Se conservan las 26/26 tareas completadas; queda pendiente la revisión humana de cierre del resultado.
 
 ## ADDED Requirements
 
@@ -37,10 +37,10 @@ El entorno MUST permitir ejecutar PostgreSQL mediante Docker Compose con una ver
 - **THEN** la aplicación puede conectarse sin requerir que su proceso Java esté contenerizado.
 
 ### Requirement: Conservación del almacenamiento técnico
-PostgreSQL MUST almacenar sus datos en un volumen persistente y conservar el estado técnico confirmado al recrear el contenedor reutilizando ese volumen. Referencia: ADR-003.
+PostgreSQL MUST almacenar sus datos mediante bind mount en una carpeta persistente del anfitrión y conservar el estado técnico confirmado al recrear el contenedor reutilizando esa carpeta. El valor predeterminado MUST ser `D:/DOCKER_DATA/POSTGRES_DATA`, configurable externamente mediante `DEMANDFLOW_DATA_DIR`; las pruebas MUST utilizar carpetas temporales independientes. Referencia: ADR-003.
 
 #### Scenario: Recreación sin pérdida del estado técnico
-- **WHEN** se recrea el contenedor después de aplicar satisfactoriamente las migraciones técnicas y se reutiliza el volumen existente sin eliminarlo
+- **WHEN** se recrea el contenedor después de aplicar satisfactoriamente las migraciones técnicas y se reutiliza la carpeta existente sin eliminar sus datos
 - **THEN** se conservan el estado técnico y el historial de migraciones confirmados y la base puede volver a utilizarse sin reinicialización destructiva.
 
 ### Requirement: Exposición restringida a loopback
@@ -135,7 +135,7 @@ Las pruebas de persistencia MUST ejecutarse contra PostgreSQL real de versión f
 
 #### Scenario: Ejecuciones independientes
 - **WHEN** se ejecutan las pruebas de conexión, migraciones, fallos controlados y arranque sobre entornos PostgreSQL de prueba independientes con los prerrequisitos documentados
-- **THEN** producen resultados equivalentes sin depender del orden ni de datos previos, no modifican el volumen de desarrollo y no requieren secretos reales versionados ni objetos de negocio.
+- **THEN** producen resultados equivalentes sin depender del orden ni de datos previos, no modifican la carpeta permanente de desarrollo y no requieren secretos reales versionados ni objetos de negocio.
 
 #### Scenario: Regresión del modo predeterminado
 - **WHEN** se ejecutan las comprobaciones de `application-startup` mediante Maven Wrapper sin infraestructura ni habilitación de persistencia
