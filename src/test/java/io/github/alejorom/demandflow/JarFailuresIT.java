@@ -54,8 +54,8 @@ class JarFailuresIT {
                 Files.copy(Path.of("src/main/resources/db/migration/V1__initialize_application_namespace.sql"),
                         migrations.resolve("V1__initialize_application_namespace.sql"),
                         java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                Files.copy(Path.of("src/test/resources/migrations/failing/V2__fail_namespace_comment.sql"),
-                        migrations.resolve("V2__fail_namespace_comment.sql"));
+                Files.copy(Path.of("src/test/resources/migrations/failing/V4__fail_namespace_comment.sql"),
+                        migrations.resolve("V4__fail_namespace_comment.sql"));
                 failure("sql-execution", port, secrets, "migration execution failed", location);
                 assertThat(MigrationEvolutionIT.history(admin)).isEqualTo(original);
                 assertThat(scalar(admin, "select coalesce(obj_description('demandflow'::regnamespace),'absent')"))

@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.flywaydb.core.Flyway;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.Ports;
@@ -26,6 +27,30 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 final class PostgresTestSupport {
     static final String IMAGE = "postgres:17.12-trixie";
+    static final String V1 = "V1__initialize_application_namespace.sql";
+
+    /** Copies only the technical baseline, independent of later production migrations or JPA. */
+    static Path technicalV1(Path directory) throws IOException {
+        Path source = Path.of(System.getProperty("demandflow.test.v1-source",
+                "src/main/resources/db/migration/" + V1));
+        if (!Files.isRegularFile(source)) {
+            throw new IOException("Isolated persistence prerequisite missing: V1 migration source");
+        }
+        Files.createDirectories(directory);
+        Files.copy(source, directory.resolve(V1));
+        return directory;
+    }
+
+    /** Uses only the port of the test-created container; never discovers development settings. */
+    static Flyway technicalFlyway(int port, Secrets secrets, Path migrations) {
+        return Flyway.configure()
+                .dataSource(url(port), "demandflow_migrator", secrets.migrator)
+                .locations("filesystem:" + migrations.toAbsolutePath().toString().replace('\\', '/'))
+                .defaultSchema("infra").schemas("infra").createSchemas(false)
+                .validateOnMigrate(true).baselineOnMigrate(false).outOfOrder(false)
+                .cleanDisabled(true).failOnMissingLocations(true)
+                .connectRetries(0).lockRetryCount(3).load();
+    }
 
     static final class Secrets {
         final Path directory;

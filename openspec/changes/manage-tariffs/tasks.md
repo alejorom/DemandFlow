@@ -12,9 +12,9 @@ Todas las pruebas PostgreSQL previstas se ejecutarán exclusivamente en entornos
 
 Dependencia: autorización independiente de implementación. Este grupo no la concede.
 
-- [ ] 1.1 Verificar rama `feature/manage-tariffs`, cambios locales, aprobación de los artefactos y límites D1–D9/T1–T9 antes de implementar; registrar como evidencia el estado inicial y el hash de V1, y detenerse si hay conflictos o falta autorización. Aceptación: revisión trazable a ADR-008 sin cambios ajenos, demandas, HU-006 ni correcciones editoriales incorporadas.
-- [ ] 1.2 Incorporar únicamente los starters Thymeleaf, Validation y Security y `spring-security-test` de T6, gestionados por Boot 4.1.2; verificar con Maven Wrapper el árbol efectivo, Java 21/JUnit Jupiter 6 y compilación, y registrar revisión de compatibilidad y seguridad sin nuevas dependencias o excepciones no aprobadas. Aceptación: versiones conservadas y cualquier incompatibilidad que exija cambiar T6 se devuelve a revisión.
-- [ ] 1.3 Preparar el soporte de pruebas reutilizando Testcontainers, cuentas sintéticas y TempDir existentes; separar preparación V1 por Flyway/JDBC del arranque JPA completo y numerar fixtures después de V3. Verificar una prueba de humo aislada y el fallo explícito por prerrequisito ausente; documentar cómo invocarlas sin rutas o secretos permanentes. T9; LP4.S1/S3.
+- [x] 1.1 Verificar rama `feature/manage-tariffs`, cambios locales, aprobación de los artefactos y límites D1–D9/T1–T9 antes de implementar; registrar como evidencia el estado inicial y el hash de V1, y detenerse si hay conflictos o falta autorización. Aceptación: revisión trazable a ADR-008 sin cambios ajenos, demandas, HU-006 ni correcciones editoriales incorporadas.
+- [x] 1.2 Incorporar únicamente los starters Thymeleaf, Validation y Security y `spring-security-test` de T6, gestionados por Boot 4.1.2; verificar con Maven Wrapper el árbol efectivo, Java 21/JUnit Jupiter 6 y compilación, y registrar revisión de compatibilidad y seguridad sin nuevas dependencias o excepciones no aprobadas. Aceptación: versiones conservadas y cualquier incompatibilidad que exija cambiar T6 se devuelve a revisión.
+- [x] 1.3 Preparar el soporte de pruebas reutilizando Testcontainers, cuentas sintéticas y TempDir existentes; separar preparación V1 por Flyway/JDBC del arranque JPA completo y numerar fixtures después de V3. Verificar una prueba de humo aislada y el fallo explícito por prerrequisito ausente; documentar cómo invocarlas sin rutas o secretos permanentes. T9; LP4.S1/S3.
 
 ## 2. Migraciones, restricciones y permisos
 
