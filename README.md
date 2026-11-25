@@ -1,6 +1,6 @@
 # DemandFlow — Diseño y levantamiento integrado
 
-**Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. `setup-database` tiene sus 26 tareas implementadas y verificadas, pendiente de revisión humana de cierre. D2 utiliza `postgres:17.12-trixie` con riesgo residual aceptado exclusivamente para el MVP local sin exposición a Internet; consultar [las evidencias](openspec/changes/setup-database/evidence.md) y [la revisión de imagen](openspec/changes/setup-database/image-security-review.md). El entorno permanente de desarrollo se crea manualmente según la guía.
+**Estado:** Línea base funcional y arquitectónica v1.0 aprobada, identificada mediante el tag `v1.0.0-docs`. `setup-database` está archivado en `openspec/changes/archive/2026-11-25-setup-database/`, con sus 26 tareas completadas y la capacidad `local-persistence` sincronizada; los cambios de archivado quedan pendientes de revisión humana. D2 utiliza `postgres:17.12-trixie` con riesgo residual aceptado exclusivamente para el MVP local sin exposición a Internet; consultar [las evidencias](openspec/changes/archive/2026-11-25-setup-database/evidence.md) y [la revisión de imagen](openspec/changes/archive/2026-11-25-setup-database/image-security-review.md). El entorno permanente de desarrollo se crea manualmente según la guía.
 
 OpenSpec se inicializó y configuró con OpenSpec CLI 1.15.0 para Antigravity, Codex, Claude Code y GitHub Copilot. La inicialización no autoriza la implementación.
 
@@ -42,6 +42,8 @@ El servidor escucha en `127.0.0.1:8080`; se detiene con Ctrl+C. Sin autenticaci�
 
 `mvnw.cmd test` y `mvnw.cmd package` no solicitan pruebas PostgreSQL. El perfil Maven `persistence-it` se reserva para la verificación explícita de integración; no activa por sí mismo el perfil Spring de ejecución. No se habilita persistencia automáticamente por detectar Docker o una URL de conexión.
 
-La preparación de Compose, secretos y bootstrap se describe en la [guía de persistencia local](docs/engineering/local-persistence-guide.md). Los resultados realmente ejecutados están en [evidence.md](openspec/changes/setup-database/evidence.md).
+La preparación de Compose, secretos y bootstrap se describe en la [guía de persistencia local](docs/engineering/local-persistence-guide.md). Los resultados realmente ejecutados están en [evidence.md](openspec/changes/archive/2026-11-25-setup-database/evidence.md).
 
 PostgreSQL de desarrollo conserva los datos mediante bind mount en `D:\DOCKER_DATA\POSTGRES_DATA` por defecto; `DEMANDFLOW_DATA_DIR` permite otra ruta absoluta. El operador prepara/revisa esa carpeta y levanta Compose manualmente. Las pruebas usan directorios temporales separados.
+
+La especificación canónica de persistencia está en [local-persistence](openspec/specs/local-persistence/spec.md). Los artefactos y evidencias archivados se conservan íntegros: sus referencias textuales a la ruta original `openspec/changes/setup-database/` describen la ubicación histórica, cuyo contenido se encuentra ahora en `openspec/changes/archive/2026-11-25-setup-database/`.

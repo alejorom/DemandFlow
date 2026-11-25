@@ -4,7 +4,7 @@ Esta guía aplica al cambio `setup-database`; no incorpora funcionalidades de ne
 
 ## Estado y responsabilidad del operador
 
-El 2026-11-24 el usuario aprobó D2 para `postgres:17.12-trixie` y aceptó expresamente sus riesgos residuales solo para el MVP en equipo local de confianza, sin exposición a Internet. El digest evaluado es `postgres@sha256:87c8b42f423b45d5247e6aa8fdb2e7762fec164c68a50fe3eb07e7bfcaf4dbcf`. La aprobación no declara la imagen libre de vulnerabilidades ni permite cambiarla automáticamente. Véanse el [informe de seguridad](../../openspec/changes/setup-database/image-security-review.md) y las [evidencias](../../openspec/changes/setup-database/evidence.md) para el progreso verificable.
+El 2026-11-24 el usuario aprobó D2 para `postgres:17.12-trixie` y aceptó expresamente sus riesgos residuales solo para el MVP en equipo local de confianza, sin exposición a Internet. El digest evaluado es `postgres@sha256:87c8b42f423b45d5247e6aa8fdb2e7762fec164c68a50fe3eb07e7bfcaf4dbcf`. La aprobación no declara la imagen libre de vulnerabilidades ni permite cambiarla automáticamente. Véanse el [informe de seguridad](../../openspec/changes/archive/2026-11-25-setup-database/image-security-review.md) y las [evidencias](../../openspec/changes/archive/2026-11-25-setup-database/evidence.md) para el progreso verificable.
 
 El usuario administra la creación, puesta en marcha y detención del proyecto permanente `demandflow-local`, su carpeta de datos y sus credenciales. Los comandos siguientes son instrucciones para ejecución manual; prepararlos no acredita haberlos ejecutado. El agente no crea ese entorno ni genera sus secretos. Compose identifica un proyecto y un servicio, no un contenedor con nombre fijo: no añadir `container_name` ni añadir un volumen administrado de datos.
 
@@ -201,4 +201,4 @@ Los errores de propiedades vacías, conexión rechazada/no disponible o iniciali
 
 El reporte distingue `configuration incomplete`, `database connection unavailable or rejected`, `migration validation failed` y `migration execution failed`; estas dos últimas categorías no autorizan repair ni edición de versiones aplicadas. Un directorio configtree ausente también es configuración incompleta. Hibernate puede sustituir la causa de autenticación por un fallo de metadata: revisar la sincronización de la cuenta runtime, sin fijar un dialecto para ocultar la falta de conexión.
 
-La revisión de la imagen y sus límites se registra en [image-security-review.md](../../openspec/changes/setup-database/image-security-review.md). Los resultados de arranque y privilegios no sustituyen esa revisión ni aprueban excepciones de seguridad.
+La revisión de la imagen y sus límites se registra en [image-security-review.md](../../openspec/changes/archive/2026-11-25-setup-database/image-security-review.md). Los resultados de arranque y privilegios no sustituyen esa revisión ni aprueban excepciones de seguridad.
