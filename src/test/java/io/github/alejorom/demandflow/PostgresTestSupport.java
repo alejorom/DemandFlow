@@ -1,0 +1,105 @@
+package io.github.alejorom.demandflow;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+final class PostgresTestSupport {
+    static final String IMAGE = "postgres:17.12-trixie";
+
+    static final class Secrets {
+        final Path directory;
+        final String admin = "df-admin-" + UUID.randomUUID();
+        final String migrator = "df-migrator-'" + UUID.randomUUID();
+        final String runtime = "df-runtime-" + UUID.randomUUID();
+
+        Secrets(Path directory) throws IOException {
+            this.directory = directory;
+            Files.createDirectories(directory.resolve("bootstrap"));
+            Files.createDirectories(directory.resolve("spring"));
+            Files.writeString(directory.resolve("bootstrap/postgres.password"), admin);
+            Files.writeString(directory.resolve("spring/spring.flyway.password"), migrator);
+            Files.writeString(directory.resolve("spring/spring.datasource.password"), runtime);
+        }
+
+        void assertNotLeaked(String output) {
+            assertFalse(output.contains(admin), "Administrative secret leaked");
+            assertFalse(output.contains(migrator), "Migration secret leaked");
+            assertFalse(output.contains(runtime), "Runtime secret leaked");
+        }
+    }
+
+    static GenericContainer<?> postgres(Secrets secrets) {
+        return new GenericContainer<>(DockerImageName.parse(IMAGE))
+                .withEnv("POSTGRES_DB", "demandflow")
+                .withEnv("POSTGRES_USER", "postgres")
+                .withEnv("POSTGRES_PASSWORD_FILE", "/run/secrets/postgres_admin_password")
+                .withEnv("POSTGRES_HOST_AUTH_METHOD", "scram-sha-256")
+                .withEnv("POSTGRES_INITDB_ARGS", "--auth-host=scram-sha-256")
+                .withCopyFileToContainer(MountableFile.forHostPath(
+                        secrets.directory.resolve("bootstrap/postgres.password"), 0444),
+                        "/run/secrets/postgres_admin_password")
+                .withCopyFileToContainer(MountableFile.forHostPath(
+                        secrets.directory.resolve("spring/spring.flyway.password"), 0444),
+                        "/run/secrets/postgres_migrator_password")
+                .withCopyFileToContainer(MountableFile.forHostPath(
+                        secrets.directory.resolve("spring/spring.datasource.password"), 0444),
+                        "/run/secrets/postgres_runtime_password")
+                .withCopyFileToContainer(MountableFile.forHostPath("docker/postgres/10-bootstrap.sh", 0755),
+                        "/docker-entrypoint-initdb.d/10-bootstrap.sh")
+                .withExposedPorts(5432)
+                .withCreateContainerCmdModifier(command -> command.getHostConfig().withPortBindings(
+                        new PortBinding(Ports.Binding.bindIpAndPort("127.0.0.1", 0), new ExposedPort(5432))))
+                .withStartupAttempts(1)
+                .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(120)));
+    }
+
+    static String url(int port) {
+        return "jdbc:postgresql://127.0.0.1:" + port
+                + "/demandflow?connectTimeout=5&loginTimeout=5&socketTimeout=15&cancelSignalTimeout=2";
+    }
+
+    static Connection connect(int port, String user, String password) throws SQLException {
+        return DriverManager.getConnection(url(port), user, password);
+    }
+
+    static String scalar(Connection connection, String sql) throws SQLException {
+        try (var statement = connection.createStatement(); var result = statement.executeQuery(sql)) {
+            if (!result.next()) {
+                throw new SQLException("Expected a result row");
+            }
+            return result.getString(1);
+        }
+    }
+
+    static ConfigurableApplicationContext application(int port, Secrets secrets, String... extra) {
+        var arguments = new ArrayList<>(List.of("--DEMANDFLOW_DB_PORT=" + port,
+                "--DEMANDFLOW_SECRETS_DIR=" + secrets.directory.toString().replace('\\', '/'),
+                "--spring.main.banner-mode=off", "--logging.level.root=ERROR", "--debug=false"));
+        arguments.addAll(List.of(extra));
+        return new SpringApplicationBuilder(DemandFlowApplication.class)
+                .web(WebApplicationType.NONE).profiles("persistence").run(arguments.toArray(String[]::new));
+    }
+
+    private PostgresTestSupport() { }
+}
