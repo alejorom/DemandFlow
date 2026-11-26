@@ -74,6 +74,21 @@ public class HourlyRate {
         return true;
     }
 
+    public void deactivate() {
+        if (!active) {
+            throw new IllegalStateException("Rate is already inactive");
+        }
+        active = false;
+    }
+
+    public void reactivate() {
+        if (active) {
+            throw new IllegalStateException("Rate is already active");
+        }
+        validateAmount(amountCop);
+        active = true;
+    }
+
     public Long getId() { return id; }
     public Long getVersion() { return version; }
     public TariffPeriod getPeriod() { return period; }
