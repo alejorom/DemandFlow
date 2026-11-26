@@ -94,14 +94,14 @@ public class TariffPeriod {
 
     public void deactivate() {
         if (!active) {
-            throw new IllegalStateException("Period is already inactive");
+            throw new CatalogConflictException(CatalogConflictException.Reason.REDUNDANT_STATE);
         }
         active = false;
     }
 
     public void reactivate() {
         if (active) {
-            throw new IllegalStateException("Period is already active");
+            throw new CatalogConflictException(CatalogConflictException.Reason.REDUNDANT_STATE);
         }
         edit(label, startDate, endDate);
         active = true;

@@ -9,6 +9,7 @@ import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.ActorO
 import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.Operation;
 import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.PeriodState;
 import io.github.alejorom.demandflow.tariffs.domain.TariffPeriod;
+import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
 import io.github.alejorom.demandflow.tariffs.persistence.TariffPeriodRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -109,7 +110,7 @@ public class TariffPeriodService {
 
     private void checkOverlap(LocalDate startDate, LocalDate endDate, Long excludedId) {
         if (periods.overlaps(startDate, endDate, excludedId)) {
-            throw new IllegalStateException("Period dates overlap another period");
+            throw new CatalogConflictException(CatalogConflictException.Reason.PERIOD_OVERLAP);
         }
     }
 

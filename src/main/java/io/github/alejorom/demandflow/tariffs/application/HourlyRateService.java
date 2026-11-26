@@ -9,6 +9,7 @@ import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.ActorO
 import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.Operation;
 import io.github.alejorom.demandflow.audit.application.CatalogAuditWriter.RateState;
 import io.github.alejorom.demandflow.tariffs.domain.HourlyRate;
+import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
 import io.github.alejorom.demandflow.tariffs.domain.TariffPeriod;
 import io.github.alejorom.demandflow.tariffs.persistence.HourlyRateRepository;
 import io.github.alejorom.demandflow.tariffs.persistence.HourlyRateRepository.RateRead;
@@ -51,7 +52,7 @@ public class HourlyRateService {
         var type = types.findById(typeId).orElseThrow(() -> new EntityNotFoundException("Rate type not found"));
         var rate = new HourlyRate(period, type, amountCop);
         if (rates.existsByPeriod_IdAndType_Id(periodId, typeId)) {
-            throw new IllegalStateException("A rate already exists for the period and type");
+            throw new CatalogConflictException(CatalogConflictException.Reason.RATE_DUPLICATE);
         }
         rates.save(rate);
         entityManager.flush();
@@ -138,7 +139,7 @@ public class HourlyRateService {
 
     private static void requireActive(TariffPeriod period) {
         if (!period.isActive()) {
-            throw new IllegalStateException("Rate creation or reactivation requires an active period");
+            throw new CatalogConflictException(CatalogConflictException.Reason.PERIOD_INACTIVE);
         }
     }
 

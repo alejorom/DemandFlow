@@ -76,14 +76,14 @@ public class HourlyRate {
 
     public void deactivate() {
         if (!active) {
-            throw new IllegalStateException("Rate is already inactive");
+            throw new CatalogConflictException(CatalogConflictException.Reason.REDUNDANT_STATE);
         }
         active = false;
     }
 
     public void reactivate() {
         if (active) {
-            throw new IllegalStateException("Rate is already active");
+            throw new CatalogConflictException(CatalogConflictException.Reason.REDUNDANT_STATE);
         }
         validateAmount(amountCop);
         active = true;

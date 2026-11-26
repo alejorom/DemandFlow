@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <!-- T4: structured constraint metadata; same Boot-managed driver, already packaged at runtime. -->
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
