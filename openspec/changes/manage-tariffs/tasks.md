@@ -64,8 +64,8 @@ Dependencia: grupo 5. Usar conexiones y transacciones independientes, barreras/l
 
 Dependencia: grupo 1; se realiza después del 6 para una secuencia de entrega única. No depende de controladores del grupo 8.
 
-- [ ] 7.1 Configurar SecurityFilterChain permitAll con CSRF habilitado, sin form login/HTTP Basic/logout; excluir `UserDetailsServiceAutoConfiguration` en ambos modos preservando exclusiones anteriores. Verificar con pruebas de la cadena real acceso sin login/401/contraseña generada, 403 ante POST sin token/inválido y configuración operativa sin DataSource; no excluir rutas de catálogo de CSRF. T7/T8; TP1.S4, HR8.S1/S3.
-- [ ] 7.2 Aplicar CSP exacta de T7 compatible con CSS local, nosniff y denegación de frames; configurar manejo y plantillas de errores seguros sin datos sensibles, ni HSTS forzado en HTTP local. Aceptación: pruebas MVC comprueban cabeceras, ausencia de trazas/SQL/secretos y compatibilidad con recursos propios; registrar revisión de seguridad según `docs/engineering/security-standards.md`. T7; TP1.S3/S5, HR8.S2–S3, CA2.S3.
+- [x] 7.1 Configurar SecurityFilterChain permitAll con CSRF habilitado, sin form login/HTTP Basic/logout; excluir `UserDetailsServiceAutoConfiguration` en ambos modos preservando exclusiones anteriores. Verificar con pruebas de la cadena real acceso sin login/401/contraseña generada, 403 ante POST sin token/inválido y configuración operativa sin DataSource; no excluir rutas de catálogo de CSRF. T7/T8; TP1.S4, HR8.S1/S3.
+- [x] 7.2 Aplicar CSP exacta de T7 compatible con CSS local, nosniff y denegación de frames; configurar manejo y plantillas de errores seguros sin datos sensibles, ni HSTS forzado en HTTP local. Aceptación: pruebas MVC comprueban cabeceras, ausencia de trazas/SQL/secretos y compatibilidad con recursos propios; registrar revisión de seguridad según `docs/engineering/security-standards.md`. T7; TP1.S3/S5, HR8.S2–S3, CA2.S3.
 
 ## 8. MVC, formularios y vistas locales
 
