@@ -56,7 +56,8 @@ class WebSecurityPersistenceIT {
                 assertThat(failureBody).contains("No se pudo completar la solicitud")
                         .doesNotContain("synthetic_secret", "password=", "SQLException", "<script");
                 for (String path : new String[] {"/", "/login", "/logout", "/tariffs/periods", "/tariffs/rates"}) {
-                    mvc.perform(get(path)).andExpect(status().isNotFound())
+                    boolean catalog = path.startsWith("/tariffs/");
+                    var response = mvc.perform(get(path)).andExpect(status().is(catalog ? 200 : 404))
                             .andExpect(header().doesNotExist("WWW-Authenticate"))
                             .andExpect(header().doesNotExist("Location"))
                             .andExpect(header().string("Content-Security-Policy",
@@ -65,11 +66,17 @@ class WebSecurityPersistenceIT {
                             .andExpect(header().string("X-Content-Type-Options", "nosniff"))
                             .andExpect(header().string("X-Frame-Options", "DENY"))
                             .andExpect(header().doesNotExist("Strict-Transport-Security"));
+                    if (catalog) {
+                        response.andExpect(view().name(path.substring(1) + "/list"))
+                                .andExpect(model().attributeExists(path.endsWith("periods") ? "periods" : "rates"));
+                    }
                 }
                 for (String path : new String[] {"/tariffs/periods", "/tariffs/rates"}) {
                     mvc.perform(post(path)).andExpect(status().isForbidden());
                     mvc.perform(post(path).with(csrf().useInvalidToken())).andExpect(status().isForbidden());
-                    mvc.perform(post(path).with(csrf())).andExpect(status().isNotFound());
+                    mvc.perform(post(path).with(csrf())).andExpect(status().isOk())
+                            .andExpect(view().name(path.substring(1) + "/form"))
+                            .andExpect(model().hasErrors());
                 }
             }
         }

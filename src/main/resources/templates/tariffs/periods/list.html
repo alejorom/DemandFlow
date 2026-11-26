@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Períodos de vigencia — DemandFlow</title></head>
+<body>
+<nav th:replace="~{tariffs/fragments :: navigation}"></nav>
+<main>
+    <h1>Períodos de vigencia</h1>
+    <a th:href="@{/tariffs/periods/new}">Crear período</a>
+    <p th:if="${#lists.isEmpty(periods)}">No hay períodos registrados.</p>
+    <table th:unless="${#lists.isEmpty(periods)}">
+        <caption>Períodos activos e inactivos</caption>
+        <thead><tr><th scope="col">Etiqueta</th><th scope="col">Inicio</th><th scope="col">Fin</th><th scope="col">Estado</th><th scope="col">Consulta</th></tr></thead>
+        <tbody><tr th:each="period : ${periods}">
+            <td th:text="${period.label}"></td><td th:text="${period.startDate}"></td><td th:text="${period.endDate}"></td>
+            <td th:text="${period.active ? 'Activo' : 'Inactivo'}"></td>
+            <td><a th:href="@{/tariffs/periods/{id}(id=${period.id})}">Ver período</a></td>
+        </tr></tbody>
+    </table>
+</main>
+</body>
+</html>

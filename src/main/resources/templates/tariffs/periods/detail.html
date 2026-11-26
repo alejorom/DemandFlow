@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalle del período — DemandFlow</title></head>
+<body>
+<nav th:replace="~{tariffs/fragments :: navigation}"></nav>
+<main>
+    <h1>Detalle del período</h1>
+    <dl>
+        <dt>Etiqueta</dt><dd th:text="${period.label}"></dd>
+        <dt>Inicio</dt><dd th:text="${period.startDate}"></dd>
+        <dt>Fin inclusivo</dt><dd th:text="${period.endDate}"></dd>
+        <dt>Estado</dt><dd th:text="${period.active ? 'Activo' : 'Inactivo'}"></dd>
+    </dl>
+    <a th:href="@{/tariffs/periods/{id}/edit(id=${period.id})}">Editar período</a>
+    <form method="post" th:object="${form}" th:action="${period.active} ? @{/tariffs/periods/{id}/deactivate(id=${period.id})} : @{/tariffs/periods/{id}/reactivate(id=${period.id})}">
+        <div th:replace="~{tariffs/fragments :: errors}"></div>
+        <input type="hidden" th:field="*{expectedVersion}">
+        <p th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
+        <button type="submit" th:text="${period.active ? 'Desactivar período' : 'Reactivar período'}"></button>
+    </form>
+    <a th:href="@{/tariffs/periods/{id}(id=${period.id})}">Recargar registro</a>
+</main>
+</body>
+</html>

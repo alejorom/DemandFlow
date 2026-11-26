@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tarifas COP/h — DemandFlow</title></head>
+<body>
+<nav th:replace="~{tariffs/fragments :: navigation}"></nav>
+<main>
+    <h1>Tarifas COP/h</h1>
+    <a th:href="@{/tariffs/rates/new}">Crear tarifa</a>
+    <p th:if="${#lists.isEmpty(rates)}">No hay tarifas registradas.</p>
+    <table th:unless="${#lists.isEmpty(rates)}">
+        <caption>Tarifas activas e inactivas</caption>
+        <thead><tr><th scope="col">Período</th><th scope="col">Tipo</th><th scope="col">COP/h</th><th scope="col">Estado individual</th><th scope="col">Disponibilidad efectiva</th><th scope="col">Consulta</th></tr></thead>
+        <tbody><tr th:each="rate : ${rates}">
+            <td th:text="${rate.periodLabel}"></td><td th:text="${rate.typeName}"></td><td th:text="${rate.amountCop}"></td>
+            <td th:text="${rate.active ? 'Activa' : 'Inactiva'}"></td><td th:text="${rate.available ? 'Disponible' : 'No disponible'}"></td>
+            <td><a th:href="@{/tariffs/rates/{id}(id=${rate.id})}">Ver tarifa</a></td>
+        </tr></tbody>
+    </table>
+</main>
+</body>
+</html>

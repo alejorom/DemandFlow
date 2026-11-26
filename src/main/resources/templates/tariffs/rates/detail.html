@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalle de tarifa — DemandFlow</title></head>
+<body>
+<nav th:replace="~{tariffs/fragments :: navigation}"></nav>
+<main>
+    <h1>Detalle de tarifa</h1>
+    <dl>
+        <dt>Período</dt><dd><a th:href="@{/tariffs/periods/{id}(id=${rate.periodId})}" th:text="${rate.periodLabel}"></a></dd>
+        <dt>Tipo</dt><dd th:text="${rate.typeName}"></dd>
+        <dt>Valor COP/h</dt><dd th:text="${rate.amountCop}"></dd>
+        <dt>Estado individual</dt><dd th:text="${rate.active ? 'Activa' : 'Inactiva'}"></dd>
+        <dt>Estado del período</dt><dd th:text="${rate.periodActive ? 'Activo' : 'Inactivo'}"></dd>
+        <dt>Disponibilidad efectiva</dt><dd th:text="${rate.available ? 'Disponible' : 'No disponible'}"></dd>
+    </dl>
+    <a th:href="@{/tariffs/rates/{id}/edit(id=${rate.id})}">Corregir valor</a>
+    <form method="post" th:object="${form}" th:action="${rate.active} ? @{/tariffs/rates/{id}/deactivate(id=${rate.id})} : @{/tariffs/rates/{id}/reactivate(id=${rate.id})}">
+        <div th:replace="~{tariffs/fragments :: errors}"></div>
+        <input type="hidden" th:field="*{expectedVersion}">
+        <p th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
+        <p th:if="${!rate.active and !rate.periodActive}">El período está inactivo; no se puede reactivar la tarifa.</p>
+        <button type="submit" th:disabled="${!rate.active and !rate.periodActive}" th:text="${rate.active ? 'Desactivar tarifa' : 'Reactivar tarifa'}"></button>
+    </form>
+    <a th:href="@{/tariffs/rates/{id}(id=${rate.id})}">Recargar registro</a>
+</main>
+</body>
+</html>

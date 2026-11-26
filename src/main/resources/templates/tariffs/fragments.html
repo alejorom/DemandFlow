@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navigation" aria-label="Catálogo">
+    <a th:href="@{/tariffs/periods}">Períodos de vigencia</a>
+    <a th:href="@{/tariffs/rates}">Tarifas COP/h</a>
+</nav>
+<div th:fragment="errors" role="alert" th:if="${#fields.hasGlobalErrors()}">
+    <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+</div>
+</body>
+</html>
