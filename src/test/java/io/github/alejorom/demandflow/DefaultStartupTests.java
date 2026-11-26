@@ -33,6 +33,9 @@ class DefaultStartupTests {
             assertThat(context.containsBean("entityManagerFactory")).isFalse();
             assertThat(context.containsBean("catalogPersistenceConfiguration")).isFalse();
             assertThat(context.containsBean("catalogProfileProbe")).isFalse();
+            assertThat(context.containsBean("catalogAuditWriter")).isFalse();
+            assertThat(context.containsBean("catalogAuditInsert")).isFalse();
+            assertThat(context.containsBean("catalogAuditClock")).isFalse();
             assertThat(context.getBeansOfType(Repository.class)).isEmpty();
             assertThat(context.getEnvironment().getProperty("server.address")).isEqualTo("127.0.0.1");
             assertThat(ConditionEvaluationReport.get(context.getBeanFactory()).getExclusions())

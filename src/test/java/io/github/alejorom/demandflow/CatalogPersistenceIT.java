@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.github.alejorom.demandflow.audit.persistence.CatalogAuditEvent;
 import io.github.alejorom.demandflow.tariffs.domain.HourlyRate;
 import io.github.alejorom.demandflow.tariffs.domain.RequirementType;
 import io.github.alejorom.demandflow.tariffs.domain.TariffPeriod;
@@ -47,7 +48,8 @@ class CatalogPersistenceIT {
                 assertThat(context.getEnvironment().getProperty("spring.sql.init.mode")).isEqualTo("never");
                 var factory = context.getBean(EntityManagerFactory.class);
                 assertThat(factory.getMetamodel().getEntities().stream().map(entity -> entity.getJavaType())
-                        .collect(Collectors.toSet())).isEqualTo(Set.of(TariffPeriod.class, RequirementType.class, HourlyRate.class));
+                        .collect(Collectors.toSet())).isEqualTo(Set.of(TariffPeriod.class, RequirementType.class, HourlyRate.class,
+                                CatalogAuditEvent.class));
                 for (String field : new String[] {"period", "type"}) {
                     var association = HourlyRate.class.getDeclaredField(field);
                     var mapping = association.getAnnotation(ManyToOne.class);
