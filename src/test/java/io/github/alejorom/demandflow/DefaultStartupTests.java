@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.data.repository.Repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,6 +31,9 @@ class DefaultStartupTests {
             assertThat(context.getBeansOfType(DataSource.class)).isEmpty();
             assertThat(context.containsBean("flyway")).isFalse();
             assertThat(context.containsBean("entityManagerFactory")).isFalse();
+            assertThat(context.containsBean("catalogPersistenceConfiguration")).isFalse();
+            assertThat(context.containsBean("catalogProfileProbe")).isFalse();
+            assertThat(context.getBeansOfType(Repository.class)).isEmpty();
             assertThat(context.getEnvironment().getProperty("server.address")).isEqualTo("127.0.0.1");
             assertThat(ConditionEvaluationReport.get(context.getBeanFactory()).getExclusions())
                     .contains("org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration",
