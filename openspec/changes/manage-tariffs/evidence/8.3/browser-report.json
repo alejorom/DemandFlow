@@ -1,0 +1,351 @@
+{
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/158.0.8127.38",
+    "revision": "@bd978cc8489e498e709a40f55b1037e521b5a22d",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+    "jsVersion": "15.8.62.31"
+  },
+  "requests": [
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/favicon.ico",
+      "type": "Other",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods/new",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "type": "Document",
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "type": "Document",
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods/1",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates/new",
+      "type": "Document",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "type": "Stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e",
+      "type": "Image",
+      "method": "GET"
+    }
+  ],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/favicon.ico",
+      "status": 404,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods/new",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods/1",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/periods",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/tariffs/rates/new",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    },
+    {
+      "url": "http://127.0.0.1:63789/vendor/bootstrap/5.3.8/bootstrap.min.css",
+      "status": 200,
+      "csp": "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    }
+  ],
+  "console": [
+    {
+      "source": "network",
+      "level": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()",
+      "timestamp": 1795733798379.733,
+      "url": "http://127.0.0.1:63789/favicon.ico",
+      "networkRequestId": "37088.4"
+    },
+    {
+      "source": "security",
+      "level": "error",
+      "text": "Loading the image 'data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e' violates the following Content Security Policy directive: \"default-src 'self'\". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked.",
+      "timestamp": 1795733800800.511,
+      "url": "http://127.0.0.1:63789/tariffs/rates/new"
+    }
+  ],
+  "blocked": [
+    {
+      "requestId": "37088.29",
+      "timestamp": 214011.755193,
+      "type": "Image",
+      "errorText": "",
+      "canceled": false,
+      "blockedReason": "csp"
+    }
+  ],
+  "checks": [
+    {
+      "name": "01-periods-desktop",
+      "mobile": false,
+      "url": "/tariffs/periods",
+      "width": 1440,
+      "documentWidth": 1440,
+      "cssLoaded": true,
+      "csrfForms": [],
+      "inline": 0
+    },
+    {
+      "name": "02-periods-mobile",
+      "mobile": true,
+      "url": "/tariffs/periods",
+      "width": 390,
+      "documentWidth": 390,
+      "cssLoaded": true,
+      "csrfForms": [],
+      "inline": 0
+    },
+    {
+      "name": "03-period-form-desktop",
+      "mobile": false,
+      "url": "/tariffs/periods/new",
+      "width": 1440,
+      "documentWidth": 1440,
+      "cssLoaded": true,
+      "csrfForms": [
+        {
+          "action": "/tariffs/periods",
+          "generatedToken": true
+        }
+      ],
+      "inline": 0
+    },
+    {
+      "keyboardFirstFocus": "Saltar al contenido"
+    },
+    {
+      "keyboardSkipTarget": "contenido"
+    },
+    {
+      "fieldError": "La etiqueta debe contener entre 1 y 100 caracteres sin espacios exteriores."
+    },
+    {
+      "periodDetail": {
+        "url": "/tariffs/periods/1",
+        "escapedText": true,
+        "injectedMarkup": false,
+        "generatedToken": true
+      }
+    },
+    {
+      "name": "06-period-label-mobile",
+      "mobile": true,
+      "url": "/tariffs/periods",
+      "width": 390,
+      "documentWidth": 390,
+      "cssLoaded": true,
+      "csrfForms": [],
+      "inline": 0
+    },
+    {
+      "periodListEscaped": true
+    },
+    {
+      "name": "07-rates-desktop",
+      "mobile": false,
+      "url": "/tariffs/rates",
+      "width": 1440,
+      "documentWidth": 1440,
+      "cssLoaded": true,
+      "csrfForms": [],
+      "inline": 0
+    },
+    {
+      "name": "08-rates-mobile",
+      "mobile": true,
+      "url": "/tariffs/rates",
+      "width": 390,
+      "documentWidth": 390,
+      "cssLoaded": true,
+      "csrfForms": [],
+      "inline": 0
+    }
+  ],
+  "captures": [
+    "01-periods-desktop.png",
+    "02-periods-mobile.png",
+    "03-period-form-desktop.png",
+    "04-period-errors-mobile.png",
+    "05-period-detail-desktop.png",
+    "06-period-label-mobile.png",
+    "07-rates-desktop.png",
+    "08-rates-mobile.png",
+    "09-rate-form-desktop-csp-block.png"
+  ],
+  "stopped": "CSP_BLOCK",
+  "blockedControls": [
+    {
+      "id": "periodId",
+      "backgroundImage": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\"), none"
+    },
+    {
+      "id": "typeId",
+      "backgroundImage": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\"), none"
+    }
+  ],
+  "error": "CSP_BLOCK: stopping exactly at observed browser violation",
+  "externalRequests": []
+}
