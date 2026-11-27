@@ -8,6 +8,7 @@ import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService;
 import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService.PeriodView;
 import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
 import io.github.alejorom.demandflow.tariffs.web.PeriodController;
+import io.github.alejorom.demandflow.tariffs.web.CatalogWebExceptionHandler;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /** TP1.S1-S5/TP2/TP3/TP5/TP6: real MVC, validation, views and security; service boundary mocked. */
 @SpringBootTest(properties = {"logging.level.root=ERROR", "debug=false"})
-@Import({PeriodController.class, CatalogFailureTranslator.class})
+@Import({PeriodController.class, CatalogFailureTranslator.class, CatalogWebExceptionHandler.class})
 class PeriodMvcTests {
     @Autowired WebApplicationContext context;
     @MockitoBean TariffPeriodService periods;

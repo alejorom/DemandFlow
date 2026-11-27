@@ -3,12 +3,8 @@ package io.github.alejorom.demandflow.tariffs.web;
 import io.github.alejorom.demandflow.tariffs.application.CatalogFailureTranslator;
 import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService;
 import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService.PeriodView;
-import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -70,11 +66,7 @@ public class PeriodController {
                         HttpServletRequest request) {
         CatalogWebSupport.rejectUnexpected(request, errors, "label", "startDate", "endDate");
         var page = CatalogWebSupport.form("tariffs/periods/form", errors).addObject("editing", false);
-        if (errors.hasErrors()) { return page; }
-        try { return saved(periods.create(form.normalizedLabel(), form.start(), form.end())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(periods.create(form.normalizedLabel(), form.start(), form.end())));
     }
 
     @PostMapping("/{id}/edit")
@@ -83,11 +75,7 @@ public class PeriodController {
         CatalogWebSupport.rejectUnexpected(request, errors, "label", "startDate", "endDate", "expectedVersion");
         var page = CatalogWebSupport.form("tariffs/periods/form", errors)
                 .addObject("editing", true).addObject("period", periods.get(id));
-        if (errors.hasErrors()) { return page; }
-        try { return saved(periods.edit(id, form.getExpectedVersion(), form.normalizedLabel(), form.start(), form.end())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(periods.edit(id, form.getExpectedVersion(), form.normalizedLabel(), form.start(), form.end())));
     }
 
     @PostMapping("/{id}/deactivate")
@@ -106,18 +94,9 @@ public class PeriodController {
                                      HttpServletRequest request, boolean active) {
         CatalogWebSupport.rejectUnexpected(request, errors, "expectedVersion");
         var page = CatalogWebSupport.form("tariffs/periods/detail", errors).addObject("period", periods.get(id));
-        if (errors.hasErrors()) { return page; }
-        try { return saved(active ? periods.reactivate(id, form.getExpectedVersion())
-                : periods.deactivate(id, form.getExpectedVersion())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(active ? periods.reactivate(id, form.getExpectedVersion())
+                : periods.deactivate(id, form.getExpectedVersion())));
     }
-
-    // Provisional minimum of 8.4 for the reference cases of 8.1; no general persistence/HTTP adapter.
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String missingReference() { return "error"; }
 
     private ModelAndView saved(PeriodView period) {
         return new ModelAndView("redirect:/tariffs/periods/" + period.id());

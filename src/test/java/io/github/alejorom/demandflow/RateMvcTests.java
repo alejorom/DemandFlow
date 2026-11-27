@@ -10,6 +10,7 @@ import io.github.alejorom.demandflow.tariffs.application.HourlyRateService.TypeV
 import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService;
 import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
 import io.github.alejorom.demandflow.tariffs.web.RateController;
+import io.github.alejorom.demandflow.tariffs.web.CatalogWebExceptionHandler;
 import io.github.alejorom.demandflow.tariffs.web.RateForm;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /** HR1/HR3/HR8/CA2.S3: real MVC/security/rendering, without database or a mock catalog in production. */
 @SpringBootTest(properties = {"logging.level.root=ERROR", "debug=false"})
-@Import({RateController.class, CatalogFailureTranslator.class})
+@Import({RateController.class, CatalogFailureTranslator.class, CatalogWebExceptionHandler.class})
 class RateMvcTests {
     @Autowired WebApplicationContext context;
     @MockitoBean HourlyRateService rates;

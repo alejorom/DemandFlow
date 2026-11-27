@@ -4,12 +4,8 @@ import io.github.alejorom.demandflow.tariffs.application.CatalogFailureTranslato
 import io.github.alejorom.demandflow.tariffs.application.HourlyRateService;
 import io.github.alejorom.demandflow.tariffs.application.HourlyRateService.RateView;
 import io.github.alejorom.demandflow.tariffs.application.TariffPeriodService;
-import io.github.alejorom.demandflow.tariffs.domain.CatalogConflictException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -68,11 +64,7 @@ public class RateController {
                         HttpServletRequest request) {
         CatalogWebSupport.rejectUnexpected(request, errors, "amountCOP", "periodId", "typeId");
         var page = options(CatalogWebSupport.form("tariffs/rates/form", errors).addObject("editing", false));
-        if (errors.hasErrors()) { return page; }
-        try { return saved(rates.create(form.getPeriodId(), form.getTypeId(), form.amount())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(rates.create(form.getPeriodId(), form.getTypeId(), form.amount())));
     }
 
     @PostMapping("/{id}/edit")
@@ -81,11 +73,7 @@ public class RateController {
         CatalogWebSupport.rejectUnexpected(request, errors, "amountCOP", "expectedVersion");
         var page = CatalogWebSupport.form("tariffs/rates/form", errors)
                 .addObject("editing", true).addObject("rate", rates.get(id));
-        if (errors.hasErrors()) { return page; }
-        try { return saved(rates.correctAmount(id, form.getExpectedVersion(), form.amount())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(rates.correctAmount(id, form.getExpectedVersion(), form.amount())));
     }
 
     @PostMapping("/{id}/deactivate")
@@ -104,18 +92,9 @@ public class RateController {
                                      HttpServletRequest request, boolean active) {
         CatalogWebSupport.rejectUnexpected(request, errors, "expectedVersion");
         var page = CatalogWebSupport.form("tariffs/rates/detail", errors).addObject("rate", rates.get(id));
-        if (errors.hasErrors()) { return page; }
-        try { return saved(active ? rates.reactivate(id, form.getExpectedVersion())
-                : rates.deactivate(id, form.getExpectedVersion())); }
-        catch (CatalogConflictException | OptimisticLockingFailureException failure) {
-            return CatalogWebSupport.conflict(page, errors, failure, failures);
-        }
+        return CatalogWebSupport.submit(page, errors, failures, () -> saved(active ? rates.reactivate(id, form.getExpectedVersion())
+                : rates.deactivate(id, form.getExpectedVersion())));
     }
-
-    // Same provisional 404 boundary as 8.1; the complete HTTP adaptation remains in 8.4.
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String missingReference() { return "error"; }
 
     private ModelAndView options(ModelAndView page) {
         return page.addObject("periods", periods.list()).addObject("types", rates.listTypes());
