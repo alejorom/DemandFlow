@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(WebSafetyTests.Fixtures.class)
 @ExtendWith(OutputCaptureExtension.class)
 class WebSafetyTests {
-    private static final String CSP = "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; "
+    private static final String CSP = "default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'none'; object-src 'none'; "
             + "base-uri 'self'; frame-ancestors 'none'; form-action 'self'";
     // Deliberately synthetic hostile input; never a real credential.
     private static final String POISON = "SELECT synthetic_secret FROM private_table; password=synthetic-only <script>bad()</script>";

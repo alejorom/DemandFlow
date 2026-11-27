@@ -74,6 +74,9 @@ class WebSecurityTests {
     void anonymousAccessNeedsNeitherDatabaseNorGeneratedUser(CapturedOutput output) throws Exception {
         mvc.perform(get("/security-probe")).andExpect(status().isOk())
                 .andExpect(content().string("ok"))
+                .andExpect(header().string("Content-Security-Policy",
+                        "default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'none'; object-src 'none'; "
+                        + "base-uri 'self'; frame-ancestors 'none'; form-action 'self'"))
                 .andExpect(header().doesNotExist("WWW-Authenticate"));
         for (String path : new String[] {"/", "/login", "/logout", "/tariffs/periods", "/tariffs/rates"}) {
             mvc.perform(get(path)).andExpect(status().isNotFound())

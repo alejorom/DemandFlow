@@ -61,7 +61,7 @@ class WebSecurityPersistenceIT {
                             .andExpect(header().doesNotExist("WWW-Authenticate"))
                             .andExpect(header().doesNotExist("Location"))
                             .andExpect(header().string("Content-Security-Policy",
-                                    "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; "
+                                    "default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'none'; object-src 'none'; "
                                     + "base-uri 'self'; frame-ancestors 'none'; form-action 'self'"))
                             .andExpect(header().string("X-Content-Type-Options", "nosniff"))
                             .andExpect(header().string("X-Frame-Options", "DENY"))

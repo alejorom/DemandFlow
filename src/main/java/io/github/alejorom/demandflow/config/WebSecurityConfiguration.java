@@ -21,7 +21,7 @@ public class WebSecurityConfiguration {
                 .logout(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers
                         .contentSecurityPolicy(csp -> csp.policyDirectives(
-                                "default-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; "
+                                "default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'none'; object-src 'none'; "
                                 + "base-uri 'self'; frame-ancestors 'none'; form-action 'self'"))
                         .contentTypeOptions(Customizer.withDefaults())
                         .frameOptions(frame -> frame.deny()))
