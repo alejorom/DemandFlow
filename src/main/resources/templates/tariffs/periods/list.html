@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Períodos de vigencia — DemandFlow</title></head>
+<head th:replace="~{tariffs/fragments :: head('Períodos de vigencia — DemandFlow')}"></head>
 <body>
 <nav th:replace="~{tariffs/fragments :: navigation}"></nav>
-<main>
-    <h1>Períodos de vigencia</h1>
-    <a th:href="@{/tariffs/periods/new}">Crear período</a>
-    <p th:if="${#lists.isEmpty(periods)}">No hay períodos registrados.</p>
-    <table th:unless="${#lists.isEmpty(periods)}">
-        <caption>Períodos activos e inactivos</caption>
+<main id="contenido" class="container pb-5" tabindex="-1">
+    <h1 class="mb-4">Períodos de vigencia</h1>
+    <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods/new}">Crear período</a>
+    <p class="alert alert-warning" th:if="${#lists.isEmpty(periods)}">No hay períodos registrados.</p>
+    <div class="table-responsive border rounded p-2" role="region" aria-label="Tabla del catálogo" tabindex="0" th:unless="${#lists.isEmpty(periods)}"><table class="table table-striped align-middle mb-0">
+        <caption class="caption-top">Períodos activos e inactivos</caption>
         <thead><tr><th scope="col">Etiqueta</th><th scope="col">Inicio</th><th scope="col">Fin</th><th scope="col">Estado</th><th scope="col">Consulta</th></tr></thead>
         <tbody><tr th:each="period : ${periods}">
-            <td th:text="${period.label}"></td><td th:text="${period.startDate}"></td><td th:text="${period.endDate}"></td>
-            <td th:text="${period.active ? 'Activo' : 'Inactivo'}"></td>
-            <td><a th:href="@{/tariffs/periods/{id}(id=${period.id})}">Ver período</a></td>
+            <td class="text-break" th:text="${period.label}"></td><td class="text-break" th:text="${period.startDate}"></td><td class="text-break" th:text="${period.endDate}"></td>
+            <td class="text-break" th:text="${period.active ? 'Activo' : 'Inactivo'}"></td>
+            <td><a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods/{id}(id=${period.id})}">Ver período</a></td>
         </tr></tbody>
-    </table>
+    </table></div>
 </main>
 </body>
 </html>

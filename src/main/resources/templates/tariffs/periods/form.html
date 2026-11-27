@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mantener período — DemandFlow</title></head>
+<head th:replace="~{tariffs/fragments :: head('Mantener período — DemandFlow')}"></head>
 <body>
 <nav th:replace="~{tariffs/fragments :: navigation}"></nav>
-<main>
-    <h1 th:text="${editing ? 'Editar período' : 'Crear período'}"></h1>
-    <form method="post" th:object="${form}" th:action="${editing} ? @{/tariffs/periods/{id}/edit(id=${period.id})} : @{/tariffs/periods}">
+<main id="contenido" class="container pb-5" tabindex="-1">
+    <h1 class="mb-4" th:text="${editing ? 'Editar período' : 'Crear período'}"></h1>
+    <form class="card card-body shadow-sm my-3" method="post" th:object="${form}" th:action="${editing} ? @{/tariffs/periods/{id}/edit(id=${period.id})} : @{/tariffs/periods}">
         <div th:replace="~{tariffs/fragments :: errors}"></div>
         <div th:if="${editing}">
             <input type="hidden" th:field="*{expectedVersion}">
-            <p th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
-            <a th:href="@{/tariffs/periods/{id}/edit(id=${period.id})}">Recargar registro</a>
+            <p class="alert alert-warning" th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
+            <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods/{id}/edit(id=${period.id})}">Recargar registro</a>
         </div>
-        <p><label for="label">Etiqueta (máximo 100 caracteres)</label>
-            <input id="label" type="text" th:field="*{label}" required aria-describedby="label-error">
-            <span id="label-error" th:if="${#fields.hasErrors('validLabel')}" th:errors="*{validLabel}"></span></p>
-        <p><label for="startDate">Fecha de inicio (ISO)</label>
-            <input id="startDate" type="text" th:field="*{startDate}" placeholder="AAAA-MM-DD" required aria-describedby="dates-error"></p>
-        <p><label for="endDate">Fecha de fin inclusiva (ISO)</label>
-            <input id="endDate" type="text" th:field="*{endDate}" placeholder="AAAA-MM-DD" required aria-describedby="dates-error">
-            <span id="dates-error" th:if="${#fields.hasErrors('validDates')}" th:errors="*{validDates}"></span></p>
-        <button type="submit">Guardar período</button>
-        <a th:href="@{/tariffs/periods}">Volver a períodos</a>
+        <p><label class="form-label fw-semibold" for="label">Etiqueta (máximo 100 caracteres)</label>
+            <input class="form-control" id="label" type="text" th:field="*{label}" required aria-describedby="label-error">
+            <span id="label-error" class="d-block small text-danger"><span th:if="${#fields.hasErrors('validLabel')}" th:errors="*{validLabel}"></span></span></p>
+        <p><label class="form-label fw-semibold" for="startDate">Fecha de inicio (ISO)</label>
+            <input class="form-control" id="startDate" type="text" th:field="*{startDate}" placeholder="AAAA-MM-DD" required aria-describedby="dates-error"></p>
+        <p><label class="form-label fw-semibold" for="endDate">Fecha de fin inclusiva (ISO)</label>
+            <input class="form-control" id="endDate" type="text" th:field="*{endDate}" placeholder="AAAA-MM-DD" required aria-describedby="dates-error">
+            <span id="dates-error" class="d-block small text-danger"><span th:if="${#fields.hasErrors('validDates')}" th:errors="*{validDates}"></span></span></p>
+        <button class="btn btn-primary align-self-start my-2" type="submit">Guardar período</button>
+        <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods}">Volver a períodos</a>
     </form>
 </main>
 </body>

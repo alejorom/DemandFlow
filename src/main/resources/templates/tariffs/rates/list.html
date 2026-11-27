@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tarifas COP/h — DemandFlow</title></head>
+<head th:replace="~{tariffs/fragments :: head('Tarifas COP/h — DemandFlow')}"></head>
 <body>
 <nav th:replace="~{tariffs/fragments :: navigation}"></nav>
-<main>
-    <h1>Tarifas COP/h</h1>
-    <a th:href="@{/tariffs/rates/new}">Crear tarifa</a>
-    <p th:if="${#lists.isEmpty(rates)}">No hay tarifas registradas.</p>
-    <table th:unless="${#lists.isEmpty(rates)}">
-        <caption>Tarifas activas e inactivas</caption>
+<main id="contenido" class="container pb-5" tabindex="-1">
+    <h1 class="mb-4">Tarifas COP/h</h1>
+    <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/rates/new}">Crear tarifa</a>
+    <p class="alert alert-warning" th:if="${#lists.isEmpty(rates)}">No hay tarifas registradas.</p>
+    <div class="table-responsive border rounded p-2" role="region" aria-label="Tabla del catálogo" tabindex="0" th:unless="${#lists.isEmpty(rates)}"><table class="table table-striped align-middle mb-0">
+        <caption class="caption-top">Tarifas activas e inactivas</caption>
         <thead><tr><th scope="col">Período</th><th scope="col">Tipo</th><th scope="col">COP/h</th><th scope="col">Estado individual</th><th scope="col">Disponibilidad efectiva</th><th scope="col">Consulta</th></tr></thead>
         <tbody><tr th:each="rate : ${rates}">
-            <td th:text="${rate.periodLabel}"></td><td th:text="${rate.typeName}"></td><td th:text="${rate.amountCop}"></td>
-            <td th:text="${rate.active ? 'Activa' : 'Inactiva'}"></td><td th:text="${rate.available ? 'Disponible' : 'No disponible'}"></td>
-            <td><a th:href="@{/tariffs/rates/{id}(id=${rate.id})}">Ver tarifa</a></td>
+            <td class="text-break" th:text="${rate.periodLabel}"></td><td class="text-break" th:text="${rate.typeName}"></td><td class="text-break" th:text="${rate.amountCop}"></td>
+            <td class="text-break" th:text="${rate.active ? 'Activa' : 'Inactiva'}"></td><td class="text-break" th:text="${rate.available ? 'Disponible' : 'No disponible'}"></td>
+            <td><a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/rates/{id}(id=${rate.id})}">Ver tarifa</a></td>
         </tr></tbody>
-    </table>
+    </table></div>
 </main>
 </body>
 </html>

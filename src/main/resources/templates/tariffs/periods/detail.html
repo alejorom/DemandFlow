@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalle del período — DemandFlow</title></head>
+<head th:replace="~{tariffs/fragments :: head('Detalle del período — DemandFlow')}"></head>
 <body>
 <nav th:replace="~{tariffs/fragments :: navigation}"></nav>
-<main>
-    <h1>Detalle del período</h1>
-    <dl>
-        <dt>Etiqueta</dt><dd th:text="${period.label}"></dd>
-        <dt>Inicio</dt><dd th:text="${period.startDate}"></dd>
-        <dt>Fin inclusivo</dt><dd th:text="${period.endDate}"></dd>
-        <dt>Estado</dt><dd th:text="${period.active ? 'Activo' : 'Inactivo'}"></dd>
+<main id="contenido" class="container pb-5" tabindex="-1">
+    <h1 class="mb-4">Detalle del período</h1>
+    <dl class="row gy-2 border rounded p-3 mt-3">
+        <dt class="col-sm-4">Etiqueta</dt><dd class="col-sm-8 text-break" th:text="${period.label}"></dd>
+        <dt class="col-sm-4">Inicio</dt><dd class="col-sm-8 text-break" th:text="${period.startDate}"></dd>
+        <dt class="col-sm-4">Fin inclusivo</dt><dd class="col-sm-8 text-break" th:text="${period.endDate}"></dd>
+        <dt class="col-sm-4">Estado</dt><dd class="col-sm-8 text-break" th:text="${period.active ? 'Activo' : 'Inactivo'}"></dd>
     </dl>
-    <a th:href="@{/tariffs/periods/{id}/edit(id=${period.id})}">Editar período</a>
-    <form method="post" th:object="${form}" th:action="${period.active} ? @{/tariffs/periods/{id}/deactivate(id=${period.id})} : @{/tariffs/periods/{id}/reactivate(id=${period.id})}">
+    <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods/{id}/edit(id=${period.id})}">Editar período</a>
+    <form class="card card-body shadow-sm my-3" method="post" th:object="${form}" th:action="${period.active} ? @{/tariffs/periods/{id}/deactivate(id=${period.id})} : @{/tariffs/periods/{id}/reactivate(id=${period.id})}">
         <div th:replace="~{tariffs/fragments :: errors}"></div>
         <input type="hidden" th:field="*{expectedVersion}">
-        <p th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
-        <button type="submit" th:text="${period.active ? 'Desactivar período' : 'Reactivar período'}"></button>
+        <p class="alert alert-warning" th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
+        <button class="btn btn-primary align-self-start my-2" type="submit" th:text="${period.active ? 'Desactivar período' : 'Reactivar período'}"></button>
     </form>
-    <a th:href="@{/tariffs/periods/{id}(id=${period.id})}">Recargar registro</a>
+    <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/periods/{id}(id=${period.id})}">Recargar registro</a>
 </main>
 </body>
 </html>

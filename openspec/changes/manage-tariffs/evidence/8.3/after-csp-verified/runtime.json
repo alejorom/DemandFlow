@@ -1,0 +1,10 @@
+{
+  "image": "postgres:17.12-trixie",
+  "applicationProfile": "persistence",
+  "head": "90bb650bf61cfd27e9d4dc339ccc5e69ba745b3f",
+  "container": "demandflow-83-after-f5fcb5b6ccd5470dad11ad849645ce4e",
+  "databasePort": 52229,
+  "temporaryResourcesOnly": true,
+  "containerId": "95d3843576f472e0532f5783e03520f96128f9e7078c5048e2bf836ec96a219f",
+  "applicationUrl": "http://127.0.0.1:52233"
+}

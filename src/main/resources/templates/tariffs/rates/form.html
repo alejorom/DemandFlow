@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mantener tarifa — DemandFlow</title></head>
+<head th:replace="~{tariffs/fragments :: head('Mantener tarifa — DemandFlow')}"></head>
 <body>
 <nav th:replace="~{tariffs/fragments :: navigation}"></nav>
-<main>
-    <h1 th:text="${editing ? 'Corregir tarifa' : 'Crear tarifa'}"></h1>
-    <form method="post" th:object="${form}" th:action="${editing} ? @{/tariffs/rates/{id}/edit(id=${rate.id})} : @{/tariffs/rates}">
+<main id="contenido" class="container pb-5" tabindex="-1">
+    <h1 class="mb-4" th:text="${editing ? 'Corregir tarifa' : 'Crear tarifa'}"></h1>
+    <form class="card card-body shadow-sm my-3" method="post" th:object="${form}" th:action="${editing} ? @{/tariffs/rates/{id}/edit(id=${rate.id})} : @{/tariffs/rates}">
         <div th:replace="~{tariffs/fragments :: errors}"></div>
         <div th:unless="${editing}">
-            <p><label for="periodId">Período</label>
-                <select id="periodId" th:field="*{periodId}" required aria-describedby="period-error">
+            <p><label class="form-label fw-semibold" for="periodId">Período</label>
+                <select class="form-select" id="periodId" th:field="*{periodId}" required aria-describedby="period-error">
                     <option value="">Selecciona un período</option>
                     <option th:each="period : ${periods}" th:value="${period.id}" th:text="${period.label + (period.active ? '' : ' (Inactivo)')}" th:disabled="${!period.active}"></option>
                 </select>
-                <span id="period-error" th:if="${#fields.hasErrors('periodId')}">Selecciona una referencia de período válida.</span></p>
-            <p><label for="typeId">Tipo</label>
-                <select id="typeId" th:field="*{typeId}" required aria-describedby="type-error">
+                <span id="period-error" class="d-block small text-danger"><span th:if="${#fields.hasErrors('periodId')}">Selecciona una referencia de período válida.</span></span></p>
+            <p><label class="form-label fw-semibold" for="typeId">Tipo</label>
+                <select class="form-select" id="typeId" th:field="*{typeId}" required aria-describedby="type-error">
                     <option value="">Selecciona un tipo</option>
                     <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
-                <span id="type-error" th:if="${#fields.hasErrors('typeId')}">Selecciona Soporte o Feature.</span></p>
+                <span id="type-error" class="d-block small text-danger"><span th:if="${#fields.hasErrors('typeId')}">Selecciona Soporte o Feature.</span></span></p>
         </div>
         <div th:if="${editing}">
-            <dl><dt>Período (inmutable)</dt><dd th:text="${rate.periodLabel}"></dd><dt>Tipo (inmutable)</dt><dd th:text="${rate.typeName}"></dd></dl>
+            <dl class="row gy-2 border rounded p-3 mt-3"><dt class="col-sm-4">Período (inmutable)</dt><dd class="col-sm-8 text-break" th:text="${rate.periodLabel}"></dd><dt class="col-sm-4">Tipo (inmutable)</dt><dd class="col-sm-8 text-break" th:text="${rate.typeName}"></dd></dl>
             <input type="hidden" th:field="*{expectedVersion}">
-            <p th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
-            <a th:href="@{/tariffs/rates/{id}/edit(id=${rate.id})}">Recargar registro</a>
+            <p class="alert alert-warning" th:if="${#fields.hasErrors('expectedVersion')}" role="alert">La versión falta o no es válida. Recarga el registro.</p>
+            <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/rates/{id}/edit(id=${rate.id})}">Recargar registro</a>
         </div>
-        <p><label for="amountCOP">Valor COP/h</label>
-            <input id="amountCOP" type="text" inputmode="decimal" th:field="*{amountCOP}" required aria-describedby="amount-error">
-            <span id="amount-error" th:if="${#fields.hasErrors('validAmount')}" th:errors="*{validAmount}"></span></p>
-        <button type="submit">Guardar tarifa</button>
-        <a th:href="@{/tariffs/rates}">Volver a tarifas</a>
+        <p><label class="form-label fw-semibold" for="amountCOP">Valor COP/h</label>
+            <input class="form-control" id="amountCOP" type="text" inputmode="decimal" th:field="*{amountCOP}" required aria-describedby="amount-error">
+            <span id="amount-error" class="d-block small text-danger"><span th:if="${#fields.hasErrors('validAmount')}" th:errors="*{validAmount}"></span></span></p>
+        <button class="btn btn-primary align-self-start my-2" type="submit">Guardar tarifa</button>
+        <a class="link-primary rounded focus-ring p-1" th:href="@{/tariffs/rates}">Volver a tarifas</a>
     </form>
 </main>
 </body>
